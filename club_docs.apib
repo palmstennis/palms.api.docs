@@ -1,0 +1,61 @@
+FORMAT: 1A
+
+# Palms API Documentation
+
+## Environments
+
+
+## Models
+
+- Club
+- Area
+- Slot
+- Booking
+- Booking Set
+
+## Clubs API
+
+In this section we have described API routes related to Clubs API. The main purpose of Clubs API is to allow club to manage their data in Palms via API. With Palms Club API you can:
+
+- create booking slots
+- update slot information
+- fetch information about bookings and update their statuses
+
+### Basic integration flow
+
+The simplest integration process includes exchanging of bookings and slots data. Club CRM is pulling the data about booking requests and sending information about slots. So in the simpliest integration way Your Club CRM doesn't have to have the external API and receive the webhooks or other request. So, just send us information about available slots for booking and fetch booking requests.
+
+In this scope we don't manage club or area information via API. We just manage booking models.
+
+### Authorization
+
+Each Club has its own API Keys, that are using for request authentication. You can ask your support manager about API Key for you club.
+
+To authorize a request send API Key in `Authorization` header.
+
+```
+Authorization: Bearer [token]
+```
+
+Example for curl
+```sh
+curl https://api.palms.tennis/v1/club/slots \
+-H 'Authorization: Bearer abcdef'
+```
+
+# Group Slots
+
+Some information abou slots model
+
+### Fetch slots collection [GET /club/slots]
+
+Information about filtering slots collection
+
+### Fetch slots entity [GET /club/slots/:id]
+
+Example of slot entity
+
+### Group Update slot
+#### Update slot status [POST /club/slots/{:id}/status]
+#### Update slot date [POST /club/slots/{:id}/date]
+#### Update slot price [POST /club/slots/{:id}/price]
