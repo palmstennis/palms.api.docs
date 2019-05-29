@@ -9,7 +9,7 @@ HOST: https://api.palms.tennis
 
 
 ## Авторизация
-Внешние клиенты авторизацию по API Key. Чтобы его получить - обратитесь в поддержку hello@palms.tennis.
+Внешние клиенты авторизацию по API Key. Чтобы его получить - обратитесь в поддержку [hello@palms.tennis](mailto:hello@palms.tennis).
 
 Для авторизации запроса, нужно передать хедер Authorization с указанием API Key.
 
@@ -21,7 +21,17 @@ Authorization: Bearer XXXXX
 где `XXXXX` - ваш API Key
 
 ## Пейджинация
-описать
+
+Большинство роутов получения коллекций обьектов имеют пейджинацию. Пейджинация страничная, включает два URL параметра:
+- `page_size` (number) - количество элементов на страницы
+- `page` - номер страницы
+
+Например
+
+```
+https://api.palms.tennis/club/slots?page=1&page_size=10
+```
+
 ## Ошибки
 
 ### Ошибка валидации
@@ -56,10 +66,10 @@ Authorization: Bearer XXXXX
 
 # Group Корты
 
-## Получить список [GET /club/areas{?per_page&page}]
+## Получить список [GET /club/areas{?page_size&page}]
 
 + Parameters
-  + `per_page` (number, optional) - количество записей на странице
+  + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
 
 + Response 200 (application/json)
@@ -67,10 +77,10 @@ Authorization: Bearer XXXXX
 
 # Group Слоты бронирования
 
-## Получить список [GET /club/slots{?per_page&page}]
+## Получить список [GET /club/slots{?page_size&page}]
 
 + Parameters
-  + `per_page` (number, optional) - количество записей на странице
+  + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
 
 + Response 200 (application/json)
@@ -107,7 +117,7 @@ Authorization: Bearer XXXXX
 ## Получить список [GET /club/bookings]
 
 + Parameters
-  + `per_page` (number, optional) - количество записей на странице
+  + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
 
 + Response 200 (application/json)
@@ -160,7 +170,7 @@ Authorization: Bearer XXXXX
       + total_number: 22 (number) - общее количество сущностей
       + current_page: 1 (number) - текущая страница
       + total_pages: 2 (number) - всего страниц
-      + per_page: 20 (number) - записей на страницу
+      + page_size: 20 (number) - записей на страницу
 + data (array, fixed-type)
 
 ### `Response__OK`
