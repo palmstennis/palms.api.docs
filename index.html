@@ -106,14 +106,20 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>},
     {
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}
   ]
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
@@ -170,7 +176,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}
@@ -196,7 +209,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}
@@ -216,7 +236,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>available</code></td>
+<td><code>AVAILABLE</code></td>
 <td>слот доступен для бронирования в Palms</td>
 </tr>
 <tr>
@@ -229,7 +249,7 @@
 </tr>
 </tbody>
 </table>
-<p>Пользователи Palms будут видеть слоты со статусом <code>available</code>.</p>
+<p>Пользователи Palms будут видеть слоты со статусом <code>AVAILABLE</code>.</p>
 <p>Чтобы убрать слот из выдачи, нужно изменить статус слота на <code>disabled</code>.</p>
 <p>Статус <code>booked</code> ставится автоматически, когда пользователь бронирует слот через Palms.</p>
 <div id="слоты-бронирования-получить-список" class="resource"><h3 class="resource-heading">Получить список <a href="#слоты-бронирования-получить-список" class="permalink">&nbsp;&para;</a></h3><div id="слоты-бронирования-получить-список-get" class="action get"><h4 class="action-heading"><div class="name">Получить список</div><a href="#слоты-бронирования-получить-список-get" class="method get">GET</a><code class="uri">/club/slots</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis</span>/club/slots</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>page_size</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<p>количество записей на странице</p>
@@ -256,7 +276,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -273,7 +296,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -290,7 +316,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -383,7 +412,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -453,7 +489,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -523,7 +566,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -591,7 +641,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -654,7 +707,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -697,7 +757,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -760,7 +823,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -789,11 +859,7 @@
       "<span class="hljs-attribute">additionalProperties</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
     </span>}
   </span>}
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="слоты-бронирования-обновить-модель" class="resource"><h3 class="resource-heading">Обновить модель <a href="#слоты-бронирования-обновить-модель" class="permalink">&nbsp;&para;</a></h3><div id="слоты-бронирования-обновить-модель-patch" class="action patch"><h4 class="action-heading"><div class="name">Обновить модель</div><a href="#слоты-бронирования-обновить-модель-patch" class="method patch">PATCH</a><code class="uri">/club/slots/{id}</code></h4><h3 id="header-ограничения">Ограничения <a class="permalink" href="#header-ограничения" aria-hidden="true">¶</a></h3>
-<ol>
-<li>Редактировать только слоты со статусом <code>available</code>.</li>
-</ol>
-<h4>Example URI</h4><div class="definition"><span class="method patch">PATCH</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis</span>/club/slots/<span class="hljs-attribute" title="id">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>идентификатор слота бронирования</p>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="слоты-бронирования-обновить-модель" class="resource"><h3 class="resource-heading">Обновить модель <a href="#слоты-бронирования-обновить-модель" class="permalink">&nbsp;&para;</a></h3><div id="слоты-бронирования-обновить-модель-patch" class="action patch"><h4 class="action-heading"><div class="name">Обновить модель</div><a href="#слоты-бронирования-обновить-модель-patch" class="method patch">PATCH</a><code class="uri">/club/slots/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method patch">PATCH</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis</span>/club/slots/<span class="hljs-attribute" title="id">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>идентификатор слота бронирования</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer XXXXX</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">date_from</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
   "<span class="hljs-attribute">date_to</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
@@ -849,7 +915,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -912,7 +981,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -1010,6 +1086,7 @@
 <p>После наступления финального статуса, в модели Booking проставляется поле <code>finished_at</code>.</p>
 <div id="бронирование-получить-список" class="resource"><h3 class="resource-heading">Получить список <a href="#бронирование-получить-список" class="permalink">&nbsp;&para;</a></h3><div id="бронирование-получить-список-get" class="action get"><h4 class="action-heading"><div class="name">Получить список</div><a href="#бронирование-получить-список-get" class="method get">GET</a><code class="uri">/club/bookings</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis</span>/club/bookings</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>page_size</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<p>количество записей на странице</p>
 </dd><dt>page</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<p>номер страницы</p>
+</dd><dt>status</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<p>(фильтр) статус бронирования</p>
 </dd><dt>date_from</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<p>(фильтр) дата начала бронирования</p>
 </dd><dt>date_to</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<p>(фильтр) дата окончания бронирования</p>
 </dd><dt>price</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<p>(фильтр) цена бронирования</p>
@@ -1036,7 +1113,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
         "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -1055,7 +1135,10 @@
           "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
           "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
           "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-          "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+          "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+            "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+          </span>}
         </span>}</span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -1076,7 +1159,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
         "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -1095,7 +1181,10 @@
           "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
           "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
           "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-          "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+          "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+            "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+          </span>}
         </span>}</span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -1116,7 +1205,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
         "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -1135,7 +1227,10 @@
           "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
           "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
           "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-          "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+          "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+            "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+          </span>}
         </span>}</span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -1237,7 +1332,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -1315,7 +1417,14 @@
                     </span>}</span>,
                     "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                        </span>}</span>,
+                        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                        </span>}
+                      </span>}</span>,
                       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                     </span>}
                   </span>}</span>,
@@ -1405,7 +1514,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -1483,7 +1599,14 @@
                     </span>}</span>,
                     "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                        </span>}</span>,
+                        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                        </span>}
+                      </span>}</span>,
                       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                     </span>}
                   </span>}</span>,
@@ -1573,7 +1696,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -1651,7 +1781,14 @@
                     </span>}</span>,
                     "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                        </span>}</span>,
+                        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                        </span>}
+                      </span>}</span>,
                       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                     </span>}
                   </span>}</span>,
@@ -1699,7 +1836,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -1718,7 +1858,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -1790,7 +1933,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -1868,7 +2018,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -1942,7 +2099,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -1961,7 +2121,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -2033,7 +2196,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -2111,7 +2281,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -2157,7 +2334,11 @@
       "<span class="hljs-attribute">additionalProperties</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
     </span>}
   </span>}
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="бронирование-обновить-модель" class="resource"><h3 class="resource-heading">Обновить модель <a href="#бронирование-обновить-модель" class="permalink">&nbsp;&para;</a></h3><div id="бронирование-обновить-модель-patch" class="action patch"><h4 class="action-heading"><div class="name">Обновить модель</div><a href="#бронирование-обновить-модель-patch" class="method patch">PATCH</a><code class="uri">/club/bookings/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method patch">PATCH</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis</span>/club/bookings/<span class="hljs-attribute" title="id">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>идентификатор бронирования</p>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="бронирование-обновить-модель" class="resource"><h3 class="resource-heading">Обновить модель <a href="#бронирование-обновить-модель" class="permalink">&nbsp;&para;</a></h3><div id="бронирование-обновить-модель-patch" class="action patch"><h4 class="action-heading"><div class="name">Обновить модель</div><a href="#бронирование-обновить-модель-patch" class="method patch">PATCH</a><code class="uri">/club/bookings/{id}</code></h4><h3 id="header-органичения">Органичения <a class="permalink" href="#header-органичения" aria-hidden="true">¶</a></h3>
+<ol>
+<li>Обновлять поля price и currency можно только до установки статуса <code>APPROVED</code>. После подтверждения статуса изменять цену нельзя.</li>
+</ol>
+<h4>Example URI</h4><div class="definition"><span class="method patch">PATCH</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis</span>/club/bookings/<span class="hljs-attribute" title="id">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>идентификатор бронирования</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer XXXXX</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">date_from</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
   "<span class="hljs-attribute">date_to</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
@@ -2197,7 +2378,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -2216,7 +2400,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -2288,7 +2475,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -2366,7 +2560,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
@@ -2426,7 +2627,10 @@
       "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+      "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+        "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+      </span>}
     </span>}</span>,
     "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -2445,7 +2649,10 @@
         "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Корт 1"</span></span>,
         "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
         "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
-        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+        "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value"><span class="hljs-string">"hard"</span></span>,
+          "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value"><span class="hljs-string">"value"</span>
+        </span>}
       </span>}</span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-23T12:23:23+00:00Z"</span>
@@ -2517,7 +2724,14 @@
             </span>}</span>,
             "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+              "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}</span>,
+                "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                </span>}
+              </span>}</span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
             </span>}
           </span>}</span>,
@@ -2595,7 +2809,14 @@
                 </span>}</span>,
                 "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{
                   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}</span>,
+                  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                    "<span class="hljs-attribute">covering_type</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}</span>,
+                    "<span class="hljs-attribute">parameter_2</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                    </span>}
+                  </span>}</span>,
                   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"параметры корта. значения и ключи управляются из админки Palms."</span>
                 </span>}
               </span>}</span>,
