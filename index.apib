@@ -105,7 +105,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 Согласно стандарту [E.164](https://en.wikipedia.org/wiki/E.164) в международном формате.
 
 Например, `+380932345678`
-
+<!--
 # Group Корты
 
 ## Получить список [GET /club/areas{?page_size&page}]
@@ -119,7 +119,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
-    + Attributes (Response__Areas)
+    + Attributes (Response__Areas) -->
 
 # Group Слоты бронирования
 
@@ -131,11 +131,11 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 | Статус | Описание |
 |---|---|
-| `available` | слот доступен для бронирования в Palms |
+| `AVAILABLE` | слот доступен для бронирования в Palms |
 | `booked` | слот забронирован через Palms |
 | `disabled` | слот недоступен для бронирования |
 
-Пользователи Palms будут видеть слоты со статусом `available`.
+Пользователи Palms будут видеть слоты со статусом `AVAILABLE`.
 
 Чтобы убрать слот из выдачи, нужно изменить статус слота на `disabled`.
 
@@ -176,10 +176,6 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 ## Обновить модель [PATCH /club/slots/{id}]
 
-### Ограничения
-
-1. Редактировать только слоты со статусом `available`.
-
 + Parameters
   + id: 1 (number, required) - идентификатор слота бронирования
 
@@ -216,15 +212,22 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 <img width="100%" src="https://raw.githubusercontent.com/palmstennis/palms.api.docs/master/assets/status-changes-schema.jpg" />
 
+#### Органичения
+1. До установки статуса `APPROVED`, администратор может изменять стоимость бронирования.
+2. Запросить списание можно после установки финального статуса `SHOWN` или `NOT_SHOWN`.
+3. До статуса `CONFIRMED` пользователь может отменить бронь без согласования с клубом. После должен позвонить в клуб для отмены.
+4. Поле `reason` должно быть не менее 8 символов.
+
 ### Финализация
 
 После наступления финального статуса, в модели Booking проставляется поле `finished_at`.
 
-## Получить список [GET /club/bookings]
+## Получить список [GET /club/bookings{?page_size&page&status}]
 
 + Parameters
   + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
+  + status (string, optional) - (фильтр) статус бронирования
 
 + Request (appliation/json)
     + Headers
@@ -259,6 +262,10 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__Booking)
 
 ## Обновить модель [PATCH /club/bookings/{id}]
+
+### Органичения
+
+1. Обновлять поля `price` и `currency` можно только до установки статуса `APPROVED`. После подтверждения статуса изменять цену нельзя.
 
 + Parameters
   + id: 1 (number, required) - идентификатор бронирования
@@ -337,12 +344,15 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + `date_from`: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала бронирования
 + `date_to`: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала бронирования
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
 + `area_id`: `1` (number) - идентификатор корта (опциональный, если передан slot_id)
 + `slot_id`: `1` (number) - идентификатор слота (опциональный, если передан area_id)
 
 ### `Booking__Status__Request` (object)
 
-+ `status`: `APPROVED` (string, required) - статус бронирования
++ `status`: APPROVED (string, required) - статус бронирования
++ `reason` (string, required) - причина смены статуса
 
 ## Areas
 ### Area (object)
@@ -350,6 +360,9 @@ REQUESTED -> APPROVED -> CONFIRMED
 + title: `Корт 1` (string) - название корта
 + created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
++ parameters (object) - параметры корта. значения и ключи управляются из админки Palms.
+    + covering_type: `hard`
+    + parameter_2: `value`
 
 ### `Response__Areas` (Response__Collection)
 + data (array)
