@@ -1,0 +1,276 @@
+FORMAT: 1A
+HOST: https://api.palms.tennis
+
+# Palms Club API
+
+Документация описывает интеграцию клубов с Palms. Вы можете интегрировать CRM клуба для получения бронирований из Palms.
+
+## Общая информация
+
+
+## Авторизация
+Внешние клиенты авторизацию по API Key. Чтобы его получить - обратитесь в поддержку hello@palms.tennis.
+
+Для авторизации запроса, нужно передать хедер Authorization с указанием API Key.
+
+Например,
+```
+Authorization: Bearer XXXXX
+```
+
+где `XXXXX` - ваш API Key
+
+## Пейджинация
+описать
+## Ошибки
+
+### Ошибка валидации
+### Ошибка авторизации
+### Другие ошибки
+
+## Форматы данных
+
+### Даты
+
+Даты хранятся в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) c указанием времени и часового пояса.
+
+Например, `2018-09-05T12:23:23`
+
+### Валюты
+
+Валюты мы храним в формате [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) в трех символьной строке.
+
+Например, `USD`, `UAH`, или `EUR`.
+
+### Суммы
+
+Суммы мы храним целым числом без разделителя.
+
+Например, сумма 5 грн 40 коп. будет храниться как `540`
+
+### Номера телефонов
+
+Согласно стандарту [E.164](https://en.wikipedia.org/wiki/E.164) в международном формате.
+
+Например, `+380932345678`
+
+# Group Корты
+
+## Получить список [GET /club/areas{?per_page&page}]
+
++ Parameters
+  + `per_page` (number, optional) - количество записей на странице
+  + page (number, optional) - номер страницы
+
++ Response 200 (application/json)
+    + Attributes (Response__Areas)
+
+# Group Слоты бронирования
+
+## Получить список [GET /club/slots{?per_page&page}]
+
++ Parameters
+  + `per_page` (number, optional) - количество записей на странице
+  + page (number, optional) - номер страницы
+
++ Response 200 (application/json)
+    + Attributes (Response__Slots)
+
+## Создать модель [POST /club/slots]
+
++ Request (application/json)
+    + Attributes (Slot_Create_Request)
++ Response 201 (application/json)
+    + Attributes (Response__Slot)
+
+## Получить модель [GET /club/slots/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор слота бронирования
+
++ Response 200 (application/json)
+    + Attributes (Response__Slot)
+
+## Обновить модель [PATCH /club/slots/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор слота бронирования
+
++ Request (application/json)
+    + Attributes (Slot_Update_Request)
+
++ Response 200 (application/json)
+    + Attributes (Response__Slot)
+
+# Group Бронирование
+
+## Получить список [GET /club/bookings]
+
++ Parameters
+  + `per_page` (number, optional) - количество записей на странице
+  + page (number, optional) - номер страницы
+
++ Response 200 (application/json)
+  + Attributes (Response__Bookings)
+
+## Получить модель [GET /club/bookings/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор бронирования
+
++ Response 200 (application/json)
+  + Attributes (Response__Booking)
+
+## Обновить статус модели [POST /club/bookings/{id}/status]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор бронирования
+
++ Request (application/json)
+  + Attributes (Booking__Status__Request)
+
++ Response 200 (application/json)
+  + Attributes (Response__Booking)
+
+## Обновить модель [PATCH /club/bookings/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор бронирования
+
++ Request (application/json)
+    + Attributes (Booking__Update__Request)
+
++ Response 200 (application/json)
+    + Attributes (Response__Booking)
+
+## Списать оплату за бронирование [POST /club/bookings/{id}/capture]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор бронирования
+
++ Response 200 (application/json)
+    + Attributes (Response__Booking)
+
+# Data Structures
+
+## Responses
+### `Response__Collection`
++ meta (object)
+  + pagination (object)
+      + total_number: 22 (number) - общее количество сущностей
+      + current_page: 1 (number) - текущая страница
+      + total_pages: 2 (number) - всего страниц
+      + per_page: 20 (number) - записей на страницу
++ data (array, fixed-type)
+
+### `Response__OK`
++ data (object, fixed-type)
+
+### `Response__Bookings` (Response__Collection)
++ data (array)
+  + (Booking)
+  + (Booking)
+  + (Booking)
+
+### `Response__Booking` (Response__OK)
++ data (Booking)
+
+## Bookings
+### `Booking_Status` (enum[string])
++ `REQUESTED` - пользователь запросил бронирование
++ `APPROVED` - бронирование одобрено администратором
++ `CONFIRMED` - бронирование подтверждено. пользователь не может самостоятельно отменить бронирование.
++ `CANCELED_BY_CUSTOMER` - (финальный) бронирование отменено пользователем
++ `CANCELED_BY_CLUB` - (финальный) бронирование отменено клубом
++ `OTHER` - (финальный) другая причина. с обязательным указанием причины. Технический статус
++ `SHOWN` - (финальный) клиент пришел. Считаем игру случившейся
++ `NOT_SHOWN` - (финальный) клиент не пришел. Клуб принимает решение о списании самостоятельно
+
+### `Booking` (object)
++ id: 1 (number) - идентификатор бронирования
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата начала забронированного времени
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата окончания забронированного отрезка времени
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ status: `APPROVED` (Booking_Status) - статус бронирования
++ area (Area) - корт, на который создается бронь
++ user (User) - пользователь, который забронировал корт
++ slot (Slot, optional) - пользователь, который забронировал корт
++ created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
++ updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
++ finished_at: `2019-08-23T12:23:23+00:00Z` (string) - дата завершения бронирования
+
+### `Booking__Update__Request` (object)
+
++ `date_from`: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала бронирования
++ `date_to`: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала бронирования
++ `area_id`: `1` (number) - идентификатор корта (опциональный, если передан slot_id)
++ `slot_id`: `1` (number) - идентификатор слота (опциональный, если передан area_id)
+
+### `Booking__Status__Request` (object)
+
++ `status`: `APPROVED` (string, required) - статус бронирования
+
+## Areas
+### Area (object)
++ id: `1` (number) - идентификатор корта
++ title: `Корт 1` (string) - название корта
++ created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
++ updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
+
+### `Response__Areas` (Response__Collection)
++ data (array)
+  + (Area)
+  + (Area)
+
+### `Response__Area` (Response__OK)
++ data (Area)
+
+## Users
+### User (object)
++ id: `1` (number) - идентификатор клиента
++ name: `Иван` (string) - имя клиента
++ phone_number: `+380932345678`(string) - номер телефона клиента
+
+## Slots
+
+### Slot (object)
++ id: 1 (number) - идентификатор слота
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
++ status: `AVAILABLE` (Slot_Status) - статус слота
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ area (Area) - корт, к которому относится слот
++ created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
++ updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
+
+### `Slot_Status` (enum[string])
++ AVAILABLE - доступен для бронирования в Palms
++ BOOKED - забронирован через Palms
++ DISABLED - отключен для бронирования в Palms
+
+### `Response__Slots` (Response__Collection)
++ data (array)
+  + (Slot)
+  + (Slot)
+  + (Slot)
+
+### `Response__Slot` (Response__OK)
++ data (Slot)
+
+### `Slot_Create_Request`
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
++ status: `AVAILABLE` (Slot_Status) - статус слота
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ area_id: 1 (number) - идентификатор корта, к которому относится слот
+
+### `Slot_Update_Request`
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
++ status: `AVAILABLE` (Slot_Status) - статус слота
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ area_id: 1 (number) - идентификатор корта, к которому относится слот

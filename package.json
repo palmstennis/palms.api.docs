@@ -1,0 +1,26 @@
+{
+  "name": "palms.docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "aglio": "^2.3.0",
+    "aglio-theme-onlicar": "^1.6.4",
+    "gh-pages": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "aglio -s -i index.apib --theme-fullWidth=true",
+    "build": "aglio -i index.apib --theme-fullWidth=true -o dist/index.html",
+    "release": "yarn build && yarn deploy",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/palms_/palms.docs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/palms_/palms.docs#readme"
+}
