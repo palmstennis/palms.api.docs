@@ -7,8 +7,20 @@ HOST: https://api.palms.tennis
 
 ## Общая информация
 
+1. Мы строим REST API. Все общение с Palms API проходит через HTTP в JSON формате. Мы стараемся следовать REST, но следуем common-sense и отходим от REST, когда это имеет смысл.
+2. В каждом ответе, при котором меняется, создается модель мы возвращаем обновленное значение в ответе.
+
+## Стандартные HTTP коды ответов
+
+| Код | Значение |
+| --- | --- |
+| 200 | Все ок, ответ успешный |
+| 401 | Запрос не прошел авторизацию. Проверьте ключи доступа |
+| 422 | Ошибки валидации как данных, так и логические |
+| 404 | Модель или роут не найден |
 
 ## Авторизация
+
 Внешние клиенты авторизацию по API Key. Чтобы его получить - обратитесь в поддержку [hello@palms.tennis](mailto:hello@palms.tennis).
 
 Для авторизации запроса, нужно передать хедер Authorization с указанием API Key.
@@ -24,7 +36,7 @@ Authorization: Bearer XXXXX
 
 Большинство роутов получения коллекций обьектов имеют пейджинацию. Пейджинация страничная, включает два URL параметра:
 - `page_size` (number) - количество элементов на страницы
-- `page` - номер страницы
+- `page` (number) - номер страницы
 
 Например
 
@@ -35,8 +47,38 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 ## Ошибки
 
 ### Ошибка валидации
+
+```
+{
+  "error": {
+    "message": "Validation failed",
+    "type": "validation",
+    "validations": {} // ответы валидаторов для дебага
+  }
+}
+```
+
 ### Ошибка авторизации
+
+```
+{
+  "error": {
+    "message": "You are not authorized for this action",
+    "type": "authorization_error"
+  }
+}
+```
+
 ### Другие ошибки
+
+```
+{
+  "error": {
+    "message": "Error message. Long readable text",
+    "type": "error_type"
+  }
+}
+```
 
 ## Форматы данных
 
@@ -44,7 +86,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 Даты хранятся в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) c указанием времени и часового пояса.
 
-Например, `2018-09-05T12:23:23`
+Например, `2019-05-29T15:15:43+00:00`
 
 ### Валюты
 
@@ -72,10 +114,32 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
   + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
 
++ Request (appliation/json)
+    + Headers
+        Authorization: Bearer XXXXX
+
 + Response 200 (application/json)
     + Attributes (Response__Areas)
 
 # Group Слоты бронирования
+
+**Слот** - это ячейка времени на корте, которую пользователь может забронировать для игры.
+
+### Статусы
+
+Слот бронирования может иметь ряд статусов.
+
+| Статус | Описание |
+|---|---|
+| `available` | слот доступен для бронирования в Palms |
+| `booked` | слот забронирован через Palms |
+| `disabled` | слот недоступен для бронирования |
+
+Пользователи Palms будут видеть слоты со статусом `available`.
+
+Чтобы убрать слот из выдачи, нужно изменить статус слота на `disabled`.
+
+Статус `booked` ставится автоматически, когда пользователь бронирует слот через Palms.
 
 ## Получить список [GET /club/slots{?page_size&page}]
 
@@ -83,6 +147,9 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
   + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
 
++ Request (appliation/json)
+    + Headers
+        Authorization: Bearer XXXXX
 + Response 200 (application/json)
     + Attributes (Response__Slots)
 
@@ -90,6 +157,8 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Request (application/json)
     + Attributes (Slot_Create_Request)
+    + Headers
+        Authorization: Bearer XXXXX
 + Response 201 (application/json)
     + Attributes (Response__Slot)
 
@@ -98,27 +167,68 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Parameters
   + id: 1 (number, required) - идентификатор слота бронирования
 
++ Request (appliation/json)
+    + Headers
+        Authorization: Bearer XXXXX
+
 + Response 200 (application/json)
     + Attributes (Response__Slot)
 
 ## Обновить модель [PATCH /club/slots/{id}]
+
+### Ограничения
+
+1. Редактировать только слоты со статусом `available`.
 
 + Parameters
   + id: 1 (number, required) - идентификатор слота бронирования
 
 + Request (application/json)
     + Attributes (Slot_Update_Request)
+    + Headers
+        Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
     + Attributes (Response__Slot)
 
 # Group Бронирование
 
+### Статусы бронирования
+
+| Статус | Финальный | Обязательное указание причины | Описание |
+|---|---|---|---|
+| `REQUESTED` | нет | нет | Клиент отправил заявку на бронирование. Администратор должен ее рассмотреть и подтвердить или отклонить |
+| `APPROVED` | нет | нет | Администратор подтведил заявку. |
+| `CONFIRMED` | нет | нет | Заявку нельзя отменить через приложение. Прошло время бесплатной отмены. Игрок подтвердил свое желание играть |
+| `SHOW` | да | нет | Игрок пришел играть |
+| `NOT_SHOWN` | да | нет | Игрок не пришел играть |
+| `CANCELED_BY_CLUB` | да | да | Заявка отменена клубом |
+| `CANCELED_BY_CUSTOMER` | да | да | Заявка отменена игроком |
+| `OTHER` | да | да | Другой финальный статус |
+
+### Схема смены статусов
+
+Прогнозируемая последовательность смены статусов
+
+```
+REQUESTED -> APPROVED -> CONFIRMED
+```
+
+<img width="100%" src="https://raw.githubusercontent.com/palmstennis/palms.api.docs/master/assets/status-changes-schema.jpg" />
+
+### Финализация
+
+После наступления финального статуса, в модели Booking проставляется поле `finished_at`.
+
 ## Получить список [GET /club/bookings]
 
 + Parameters
   + `page_size` (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
+
++ Request (appliation/json)
+    + Headers
+        Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
   + Attributes (Response__Bookings)
@@ -127,6 +237,10 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Parameters
   + id: 1 (number, required) - идентификатор бронирования
+
++ Request (appliation/json)
+    + Headers
+        Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
   + Attributes (Response__Booking)
@@ -138,6 +252,8 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Request (application/json)
   + Attributes (Booking__Status__Request)
+  + Headers
+      Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
   + Attributes (Response__Booking)
@@ -149,6 +265,8 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Request (application/json)
     + Attributes (Booking__Update__Request)
+    + Headers
+        Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
     + Attributes (Response__Booking)
@@ -157,6 +275,10 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Parameters
   + id: 1 (number, required) - идентификатор бронирования
+
++ Request (appliation/json)
+    + Headers
+        Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
     + Attributes (Response__Booking)
@@ -186,15 +308,16 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + data (Booking)
 
 ## Bookings
+
 ### `Booking_Status` (enum[string])
-+ `REQUESTED` - пользователь запросил бронирование
-+ `APPROVED` - бронирование одобрено администратором
-+ `CONFIRMED` - бронирование подтверждено. пользователь не может самостоятельно отменить бронирование.
-+ `CANCELED_BY_CUSTOMER` - (финальный) бронирование отменено пользователем
-+ `CANCELED_BY_CLUB` - (финальный) бронирование отменено клубом
-+ `OTHER` - (финальный) другая причина. с обязательным указанием причины. Технический статус
-+ `SHOWN` - (финальный) клиент пришел. Считаем игру случившейся
-+ `NOT_SHOWN` - (финальный) клиент не пришел. Клуб принимает решение о списании самостоятельно
++ `REQUESTED`
++ `APPROVED`
++ `CONFIRMED`
++ `CANCELED_BY_CUSTOMER`
++ `CANCELED_BY_CLUB`
++ `OTHER`
++ `SHOWN`
++ `NOT_SHOWN`
 
 ### `Booking` (object)
 + id: 1 (number) - идентификатор бронирования
@@ -256,9 +379,9 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
 
 ### `Slot_Status` (enum[string])
-+ AVAILABLE - доступен для бронирования в Palms
-+ BOOKED - забронирован через Palms
-+ DISABLED - отключен для бронирования в Palms
++ AVAILABLE
++ BOOKED
++ DISABLED
 
 ### `Response__Slots` (Response__Collection)
 + data (array)
@@ -272,7 +395,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 ### `Slot_Create_Request`
 + date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
 + date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
-+ status: `AVAILABLE` (Slot_Status) - статус слота
++ status: AVAILABLE (string) - статус слота
 + price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
 + currency: `UAH` (string) - валюта стоимости.
 + area_id: 1 (number) - идентификатор корта, к которому относится слот
