@@ -224,7 +224,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 <img width="100%" src="https://raw.githubusercontent.com/palmstennis/palms.api.docs/master/assets/status-changes-schema.jpg" />
 
-#### Органичения
+#### Ограничения
 1. До установки статуса `APPROVED`, администратор может изменять стоимость бронирования.
 2. Запросить списание можно после установки финального статуса `SHOWN` или `NOT_SHOWN`.
 3. До статуса `CONFIRMED` пользователь может отменить бронь без согласования с клубом. После должен позвонить в клуб для отмены.
@@ -284,7 +284,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ## Обновить модель [PATCH /club/bookings/{id}]
 
-### Органичения
+### Ограничения
 
 1. Обновлять поля `price` и `currency` можно только до установки статуса `APPROVED`. После подтверждения статуса изменять цену нельзя.
 
