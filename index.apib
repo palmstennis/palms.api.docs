@@ -141,15 +141,18 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 Статус `BOOKED` ставится автоматически, когда пользователь бронирует слот через Palms.
 
-## Получить список [GET /club/slots{?page_size&page}]
+## Получить список [GET /club/slots{?page_size,page}]
 
 + Parameters
-  + `page_size` (number, optional) - количество записей на странице
-  + page (number, optional) - номер страницы
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
 
 + Request (appliation/json)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 + Response 200 (application/json)
     + Attributes (Response__Slots)
 
@@ -158,7 +161,10 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Request (application/json)
     + Attributes (Slot_Create_Request)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 + Response 201 (application/json)
     + Attributes (Response__Slot)
 
@@ -169,7 +175,10 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Request (appliation/json)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__Slot)
@@ -182,7 +191,10 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Request (application/json)
     + Attributes (Slot_Update_Request)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__Slot)
@@ -222,16 +234,19 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 После наступления финального статуса, в модели Booking проставляется поле `finished_at`.
 
-## Получить список [GET /club/bookings{?page_size&page&status}]
+## Получить список [GET /club/bookings{?page_size,page,status}]
 
 + Parameters
-  + `page_size` (number, optional) - количество записей на странице
-  + page (number, optional) - номер страницы
-  + status (string, optional) - (фильтр) статус бронирования
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+  + status: `AVAILABLE` (string, optional) - (фильтр) статус бронирования
 
 + Request (appliation/json)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
   + Attributes (Response__Bookings)
@@ -243,7 +258,10 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Request (appliation/json)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
   + Attributes (Response__Booking)
@@ -256,7 +274,10 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Request (application/json)
   + Attributes (Booking__Status__Request)
   + Headers
+
+      ```
       Authorization: Bearer XXXXX
+      ```
 
 + Response 200 (application/json)
   + Attributes (Response__Booking)
@@ -273,7 +294,10 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Request (application/json)
     + Attributes (Booking__Update__Request)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__Booking)
@@ -285,7 +309,10 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Request (appliation/json)
     + Headers
+
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__Booking)
