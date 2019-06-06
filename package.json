@@ -12,6 +12,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "aglio -s -i index.apib --theme-fullWidth=true",
+    "start-player": "aglio -s -i player.apib --theme-fullWidth=true",
     "build": "aglio -i index.apib --theme-fullWidth=true -o dist/index.html",
     "release": "yarn build && yarn deploy",
     "deploy": "gh-pages -d dist"

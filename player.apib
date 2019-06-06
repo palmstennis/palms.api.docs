@@ -1,0 +1,387 @@
+FORMAT: 1A
+HOST: https://api.palms.tennis
+
+# Palms API
+
+Документация описывает клиентское АПИ Palms. Оно используется в мобильном приложении, виджете и других клиентских приложениях Palms.
+
+## Общая информация
+
+1. Мы строим REST API. Все общение с Palms API проходит через HTTP в JSON формате. Мы стараемся следовать REST, но следуем common-sense и отходим от REST, когда это имеет смысл.
+2. В каждом ответе, при котором меняется, создается модель мы возвращаем обновленное значение в ответе.
+
+## Стандартные HTTP коды ответов
+
+| Код | Значение |
+| --- | --- |
+| 200 | Все ок, ответ успешный |
+| 401 | Запрос не прошел авторизацию. Проверьте ключи доступа |
+| 422 | Ошибки валидации как данных, так и логические |
+| 404 | Модель или роут не найден |
+
+## Авторизация
+
+Для авторизации запроса, нужно передать хедер Authorization с указанием `access` токен.
+
+Например,
+```
+Authorization: Bearer XXXXX
+```
+
+где `XXXXX` - ваш `access` токен.
+
+## Пейджинация
+
+Большинство роутов получения коллекций обьектов имеют пейджинацию. Пейджинация страничная, включает два URL параметра:
+- `page_size` (number) - количество элементов на страницы
+- `page` (number) - номер страницы
+
+Например
+
+```
+https://api.palms.tennis/slots?page=1&page_size=10
+```
+
+## Ошибки
+
+### Ошибка валидации
+
+```
+{
+  "error": {
+    "message": "Validation failed",
+    "type": "validation",
+    "validations": {} // ответы валидаторов для дебага
+  }
+}
+```
+
+### Ошибка авторизации
+
+```
+{
+  "error": {
+    "message": "You are not authorized for this action",
+    "type": "authorization_error"
+  }
+}
+```
+
+### Другие ошибки
+
+```
+{
+  "error": {
+    "message": "Error message. Long readable text",
+    "type": "error_type"
+  }
+}
+```
+
+## Форматы данных
+
+### Даты
+
+Даты хранятся в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) c указанием времени и часового пояса.
+
+Например, `2019-05-29T15:15:43+00:00`
+
+### Валюты
+
+Валюты мы храним в формате [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) в трех символьной строке.
+
+Например, `USD`, `UAH`, или `EUR`.
+
+### Суммы
+
+Суммы мы храним целым числом без разделителя.
+
+Например, сумма 5 грн 40 коп. будет храниться как `540`
+
+### Номера телефонов
+
+Согласно стандарту [E.164](https://en.wikipedia.org/wiki/E.164) в международном формате.
+
+Например, `+380932345678`
+
+# Group Пользователь
+
+## Получить данные о пользователе [GET /user/me]
+
++ Response 200 (application/json)
+    + Attributes (Response__User)
+
+# Group Авторизация
+
+## Авторизация по телефон/пароль [POST /user/signin]
+
++ Request (application/json)
+    + Attributes (Request__Auth__Signin)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Signin)
+
+## Восстановление пароля 1/2. Запрос кода из СМС [POST /user/reset]
+
+Запрашиваем код восстановления по номеру телефона. В ответе нам приходит токен, связанный с кодом отправленным в СМС. Правильная пара `otp_code` и `otp_token` позволит установить новый пароль вторым запросом.
+
++ Request (application/json)
+    + Attributes (Request__Auth__Reset)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Reset)
+
+## Восстановление пароля 2/2. Установка нового пароля [POST /user/reset/confirm]
+
+Запрос на установку нового пароля. Чтобы его выполнить нужно получить первым запросом `otp_token` и `otp_code` (приходит в СМС пользователю) и отправить все это вместе с новым паролем.
+
++ Request (application/json)
+    + Attributes (Request__Auth__ResetConfirm)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__ResetConfirm)
+
+## Регистрация пользователя 1/2. Запрос кода из СМС [POST /user/signup]
+
+Запрашиваем код для регистрации по номеру телефона. В ответе нам приходит `otp_token`, связанный с `otp_code` отправленным в СМС. Правильная пара кода и токена позволит создать учетную запись вторым запросом.
+
++ Request (application/json)
+    + Attributes (Request__Auth__Signup)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Signup)
+
+## Регистрация пользователя 2/2. Создание учетной записи [POST /user/signup/confirm]
+
+Запрос на создание учетной записи. Чтобы его выполнить нужно получить первым запросом `otp_token` и `otp_code` (приходит в СМС пользователю) и отправить все это вместе с данными пользователя.
+
++ Request (application/json)
+    + Attributes (Request__Auth__SignupConfirm)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__SignupConfirm)
+
+# Group Клубы
+
+**Клуб** - это бизнес, который предоставляет клиентам услуги по аренде спортивных площадок. Например, теннисных кортов.
+
+## Получить список клубов [GET /clubs{?page_size,page}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+
++ Response 200 (application/json)
+    + Attributes (Response__Clubs)
+
+## Получить информацию о клубе [GET /clubs/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор клуба
+
++ Response 200 (application/json)
+    + Attributes (Response__Club)
+
+# Group Слоты бронирования
+
+**Слот** - это ячейка времени на корте, которую игрок может забронировать для игры.
+
+### Статусы
+
+Слот бронирования может иметь ряд статусов.
+
+| Статус | Описание |
+|---|---|
+| `AVAILABLE` | слот доступен для бронирования в Palms |
+| `BOOKED` | слот забронирован через Palms |
+| `DISABLED` | слот недоступен для бронирования |
+
+Игроки Palms видят слоты со статусом `AVAILABLE`.
+Статус `BOOKED` ставится автоматически, когда игрок бронирует слот через Palms.
+
+## Получить список [GET /slots{?page_size,page,date_from,date_to,search,club_id}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+  + date_from: `2019-05-12` (string, optional) - вернуть слоты начиная с этой даты
+  + date_to: `2019-05-13` (string, optional) - вернуть слоты заканчивая этой датой
+  + club_id: 1 (number, optional) - фильтровать по id клуба
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Slots)
+
+# Data Structures
+
+## Responses
+
+### `Response__Collection`
++ meta (object)
+  + pagination (object)
+      + total_number: 22 (number) - общее количество сущностей
+      + current_page: 1 (number) - текущая страница
+      + total_pages: 2 (number) - всего страниц
+      + page_size: 20 (number) - записей на страницу
++ data (array, fixed-type)
+
+### `Response__OK`
++ data (object, fixed-type)
+
+## Auth structures
+
+### Auth (object)
++ access: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTU5ODI5Mzg4LCJqdGkiOiI0NmI2OTRhOGMxNWU0NjU1YjQ5ZGYzOTMyNjFiMDQxMCIsInVzZXJfaWQiOjN9.rlhzqQ37cue97ExsGRhaOG_CZxUWYNsrfk7wGrPe4mE` (string) - токен доступ
++ refresh: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5MTM1NDU4OCwianRpIjoiYzZkNGUyMWQwNGFlNDIxNGI1YzY2ODJjZWVkMTljMjgiLCJ1c2VyX2lkIjozfQ.VOtlheethd4ad3yOjQYM09lI4YDDWo9UOQ94Q1r40Ws` (string) - токен получения нового токена доступа
+
+### `Response__Auth__Signin` (Response__OK)
++ data (Auth)
+
+### `Request__Auth__Signin` (object)
+
++ phone_number: `+380938765432` (string, required) - номер телефона пользователя
++ password: `12345678` (string, required) - пароль
+
+### `Request__Auth__Reset` (object)
+
++ phone_number: `+380938765432` (string, required) - номер телефона пользователя
+
+### `Response__Auth__Reset` (Response__OK)
++ data
+  + opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string) - токен для восстановления пароля по коду из СМС
++ dev
+  + otp_code: `4783` (string) - код из СМС. для автотестов на дев среде
+
+### `Request__Auth__ResetConfirm` (object)
++ otp_code: `4783` (string) - код из СМС
++ opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string) - токен для восстановления пароля по коду из СМС
++ new_password: `12345678` (string) - новый пароль пользователя
+
+### `Response__Auth__ResetConfirm` (Response__Auth__Signin)
+
+### `Request__Auth__Signup` (object)
+
++ phone_number: `+380938765432` (string, required) - номер телефона пользователя
+
+### `Response__Auth__Signup` (Response__OK)
++ data
+  + opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string) - токен для восстановления пароля по коду из СМС
++ dev
+  + otp_code: `4783` (string) - код из СМС. для автотестов на дев среде
+
+### `Request__Auth__SignupConfirm` (object)
++ phone_number: `+380938765432` (string, required) - номер телефона пользователя
++ name: `Сергей` (string, required) - имя пользователя
++ password: `12345678` (string, required) - пароль пользователя
++ otp_code: `4783` (string, required) - код из СМС
++ opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен для восстановления пароля по коду из СМС
+
+### `Response__Auth__SignupConfirm` (Response__Auth__Signin)
+
+## Users
+
+### User (object)
++ id: 1 (number) - идентификатор пользователя
++ phone_number: `+380938765432` (string) - номер телефона пользователя
++ name: `Сергей` (string) - имя пользователя
+
+### `Response__User` (Response__OK)
++ data (User)
+
+## Clubs
+
+### Club (object)
++ id: 1 (number) - идентификатор клуба
++ title: `Palms club` (string) - название клуба
++ subtitle: `Теннисный клуб` (string) - видовое описание клуба
++ description: `На линии корта сомкнулись ракетки, Хотелось бы форхенд, но мяч попал в сетку` (string) - описание клуба. Что он говорит о себе
++ prices: `Форматированный текст в markdown с ценами клуба` (string) - форматированный текст в markdown с ценами клуба
++ working_hours_tag: `7:00 - 23:00 без выходных` (string) - короткая строка с режимом работы клуба
++ pricing_tag: `270 - 530 грн/час` (string) -
++ address_tag: `Киев, ул. Академика Ботичелли, 3А` (string) -
++ contact_phone: `+380441234567` (string) -
++ contact_phone_two: `+380987654321` (string) -
++ contact_email: `hello@palms.tennis` (string) -
++ free_services: `Описание бесплатный услуг в markdown` (string) - описание бесплатный услуг в markdown
++ additional_services: `Описание дополнительных услуг в markdown` (string) - описание дополнительных услуг в markdown
++ rules: `описание правил клуба в markdown` (string) - описание правил клуба в markdown
++ facebook_title: `Теннисный клуб "Palms"` (string) - название FB страницы клуба
++ facebook_link: `https://www.facebook.com/sasha.goreniuk` (string) - ссылка на FB страницу клуба
++ areas (array[Area]) - корты клуба
+
+### `Response__Clubs` (Response__Collection)
++ data (array)
+  + (Club)
+  + (Club)
+  + (Club)
+
+### `Response__Club` (Response__OK)
++ data (Club)
+
+## Slots
+
+### Slot (object)
++ id: 1 (number) - идентификатор слота
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
++ status: `AVAILABLE` (Slot_Status) - статус слота
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ area (Area) - корт, к которому относится слот
++ club (Club) - корт, к которому относится слот
++ created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
++ updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
+
+### `Slot_Status` (enum[string])
++ AVAILABLE
++ BOOKED
++ DISABLED
+
+### `Response__Slots` (Response__Collection)
++ data (array)
+  + (Slot)
+  + (Slot)
+  + (Slot)
+
+### `Response__Slot` (Response__OK)
++ data (Slot)
+
+### `Slot_Create_Request`
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
++ status: AVAILABLE (string) - статус слота
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ area_id: 1 (number) - идентификатор корта, к которому относится слот
+
+### `Slot_Update_Request`
++ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
++ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
++ status: `AVAILABLE` (Slot_Status) - статус слота
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string) - валюта стоимости.
++ area_id: 1 (number) - идентификатор корта, к которому относится слот
+
+## Areas
+### Area (object)
++ id: `1` (number) - идентификатор корта
++ title: `Корт 1` (string) - название корта
++ created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
++ updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
++ parameters (object) - параметры корта. значения и ключи управляются из админки Palms.
+    + covering_type: `hard`
+    + parameter_2: `value`
+
+### `Response__Areas` (Response__Collection)
++ data (array)
+  + (Area)
+  + (Area)
+
+### `Response__Area` (Response__OK)
++ data (Area)
