@@ -61,8 +61,19 @@ https://api.palms.tennis/slots?page=1&page_size=10
 ```
 {
   "error": {
-    "message": "You are not authorized for this action",
-    "type": "authorization_error"
+    "message": "Authentication credentials were not provided.",
+    "type": "not_authenticated",
+  }
+}
+```
+
+и
+
+```
+{
+  "error": {
+    "message": "Token is invalid or expired",
+    "type": "token_not_valid"
   }
 }
 ```
@@ -107,6 +118,26 @@ https://api.palms.tennis/slots?page=1&page_size=10
 # Group Пользователь
 
 ## Получить данные о пользователе [GET /user/me]
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User)
+
+## Изменить данные пользователя [PATCH /user/me]
+
++ Request (appliation/json)
+    + Attributes (Request__User__Patch)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__User)
@@ -293,6 +324,10 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 ### `Response__User` (Response__OK)
 + data (User)
+
+### `Request__User__Patch` (object)
++ name: `Иван` (string) - новое имя пользователя
+
 
 ## Clubs
 
