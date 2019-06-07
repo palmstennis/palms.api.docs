@@ -365,6 +365,8 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 ## Удалить карту [DELETE /cards/{id}]
 
+При удалении карты мы затираем токен каты и ее нельзя больше использовать для оплат на IPSP
+
 + Parameters
   + id: 10 (number, required) - идентификатор карты
 
@@ -615,9 +617,12 @@ https://api.palms.tennis/slots?page=1&page_size=10
 ### Card (object)
 + id: `1` (number) - внутренний идентификатор карты в системе Palms
 + mask: `443322*1234` (string) - маска номера карты (Fondy.masked_card)
-+ card_bin: `443322` (string) - бин номер карты (Fondy.card_bin)
-+ token: `da39a3ee5e6b4b0d3255bfef95601890afd80709` (string) - токен карты в IPSP (Fondy.rectoken)
-+ exp_date: `2019-08-10T00:00:00` (string) - время жизни карты (Fondy.rectoken_lifetime)
++ bin: `443322` (string) - бин номер карты (Fondy.card_bin)
++ user_id: `1` (number) - ID пользователя - владельца карты
+<!-- + token: `da39a3ee5e6b4b0d3255bfef95601890afd80709` (string) - токен карты в IPSP (Fondy.rectoken) -->
++ `expires_at`: `2019-08-10T00:00:00` (string) - время жизни карты (Fondy.rectoken_lifetime)
++ `created_at`: `2019-08-10T00:00:00` (string) - дата добавления карты
+<!-- + deleted_at: `2019-08-10T00:00:00` (string) - дата удаления карты -->
 
 ### `Response__Cards` (Response__Collection)
 + data (array)
