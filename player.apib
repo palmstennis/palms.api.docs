@@ -251,8 +251,8 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
   + page: 1 (number, optional) - номер страницы
-  + date_from: `2019-05-12` (string, optional) - вернуть слоты начиная с этой даты
-  + date_to: `2019-05-13` (string, optional) - вернуть слоты заканчивая этой датой
+  + date_from: `2019-05-12` (string, required) - вернуть слоты начиная с этой даты
+  + date_to: `2019-05-13` (string, required) - вернуть слоты заканчивая этой датой
   + club_id: 1 (number, optional) - фильтровать по id клуба
 
 + Request (appliation/json)
@@ -264,6 +264,22 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__Slots)
+
+
+## Получить слот по ID [GET /slots/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор слота бронирования
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Slot)
 
 # Data Structures
 
@@ -416,22 +432,6 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 ### `Response__Slot` (Response__OK)
 + data (Slot)
-
-### `Slot_Create_Request`
-+ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
-+ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
-+ status: AVAILABLE (string) - статус слота
-+ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
-+ currency: `UAH` (string) - валюта стоимости.
-+ area_id: 1 (number) - идентификатор корта, к которому относится слот
-
-### `Slot_Update_Request`
-+ date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
-+ date_to: `2019-08-23T12:23:23+00:00Z` (string) - дата и время окончания слота
-+ status: `AVAILABLE` (Slot_Status) - статус слота
-+ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
-+ currency: `UAH` (string) - валюта стоимости.
-+ area_id: 1 (number) - идентификатор корта, к которому относится слот
 
 ## Areas
 ### Area (object)
