@@ -192,6 +192,22 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__Auth__SignupConfirm)
 
+## Проверка токена доступа [POST /token/verify]
+
++ Request (application/json)
+    + Attributes (Request__Auth__Verify)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Verify)
+
+## Обновление токена доступа [POST /token/refresh]
+
++ Request (application/json)
+    + Attributes (Request__Auth__Refresh)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Refresh)
+
 # Group Клубы
 
 **Клуб** - это бизнес, который предоставляет клиентам услуги по аренде спортивных площадок. Например, теннисных кортов.
@@ -271,8 +287,10 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + access: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTU5ODI5Mzg4LCJqdGkiOiI0NmI2OTRhOGMxNWU0NjU1YjQ5ZGYzOTMyNjFiMDQxMCIsInVzZXJfaWQiOjN9.rlhzqQ37cue97ExsGRhaOG_CZxUWYNsrfk7wGrPe4mE` (string) - токен доступ
 + refresh: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5MTM1NDU4OCwianRpIjoiYzZkNGUyMWQwNGFlNDIxNGI1YzY2ODJjZWVkMTljMjgiLCJ1c2VyX2lkIjozfQ.VOtlheethd4ad3yOjQYM09lI4YDDWo9UOQ94Q1r40Ws` (string) - токен получения нового токена доступа
 
-### `Response__Auth__Signin` (Response__OK)
+### `Response__Auth` (Response__OK)
 + data (Auth)
+
+### `Response__Auth__Signin` (Response__Auth)
 
 ### `Request__Auth__Signin` (object)
 
@@ -294,7 +312,7 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string) - токен для восстановления пароля по коду из СМС
 + new_password: `12345678` (string) - новый пароль пользователя
 
-### `Response__Auth__ResetConfirm` (Response__Auth__Signin)
+### `Response__Auth__ResetConfirm` (Response__Auth)
 
 ### `Request__Auth__Signup` (object)
 
@@ -313,7 +331,19 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + otp_code: `4783` (string, required) - код из СМС
 + opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен для восстановления пароля по коду из СМС
 
-### `Response__Auth__SignupConfirm` (Response__Auth__Signin)
+### `Response__Auth__SignupConfirm` (Response__Auth)
+
+
+### `Request__Auth__Verify` (object)
++ token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTU5ODI5Mzg4LCJqdGkiOiI0NmI2OTRhOGMxNWU0NjU1YjQ5ZGYzOTMyNjFiMDQxMCIsInVzZXJfaWQiOjN9.rlhzqQ37cue97ExsGRhaOG_CZxUWYNsrfk7wGrPe4mE` (string) - access токен
+
+### `Response__Auth__Verify` (Response__OK)
+
+
+### `Request__Auth__Refresh` (object)
++ refresh: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5MTM1NDU4OCwianRpIjoiYzZkNGUyMWQwNGFlNDIxNGI1YzY2ODJjZWVkMTljMjgiLCJ1c2VyX2lkIjozfQ.VOtlheethd4ad3yOjQYM09lI4YDDWo9UOQ94Q1r40Ws` (string) - refresh токен получения нового токена доступа
+
+### `Response__Auth__Refresh` (Response__Auth)
 
 ## Users
 
