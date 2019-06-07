@@ -280,7 +280,7 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__Slot)
 
-# Group бронирование
+# Group Бронирование
 
 **Бронирование** - заявка на игру. Она включает время, клуб, корт и цену. Это основная сущность системы и главная модель. Любая игра через Palms - это бронирование.
 
@@ -327,6 +327,67 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__Booking_Cancel)
+
+# Group Карты
+
+**Карта** - платежная карта пользователя. Она используется для списания/оплаты средств за бронирование.
+
+## Получить мои карты [GET /user/cards{?page_size,page}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Cards)
+
+## Получить свою карту по id [GET /user/cards/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор карты
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Card)
+
+## Удалить карту [DELETE /cards/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор карты
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+
+## Добавить новую карту [POST /cards]
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Card_Add)
 
 # Data Structures
 
@@ -548,3 +609,25 @@ https://api.palms.tennis/slots?page=1&page_size=10
   + (Booking)
   + (Booking)
   + (Booking)
+
+# Cards
+
+### Card (object)
++ id: `1` (number) - внутренний идентификатор карты в системе Palms
++ mask: `443322*1234` (string) - маска номера карты (Fondy.masked_card)
++ card_bin: `443322` (string) - бин номер карты (Fondy.card_bin)
++ token: `da39a3ee5e6b4b0d3255bfef95601890afd80709` (string) - токен карты в IPSP (Fondy.rectoken)
++ exp_date: `2019-08-10T00:00:00` (string) - время жизни карты (Fondy.rectoken_lifetime)
+
+### `Response__Cards` (Response__Collection)
++ data (array)
+  + (Card)
+  + (Card)
+
+### `Response__Card` (Response__OK)
++ data (Card)
+
+### `Request__Card_Add` (object)
+
+### `Response__Card_Add` (object)
++ `checkout_url`: `https://fondy.com/checkout_url` (string) - адрес страницы Fondy IPSP для добавления новой карты
