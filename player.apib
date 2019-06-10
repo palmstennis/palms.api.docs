@@ -328,6 +328,26 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__Booking_Cancel)
 
+## Оплатить бронирование [POST /bookings/{id}/pay]
+
+Пользователь может оплатить бронирование как с сохраненной картой, так и с новой.
+
+Чтобы оплатить с сохраненной карты - передайте `card_id`, а если нужно оплатить с новой - оставьте это поле пустым.
+
++ Parameters
+  + id: 10 (number, required) - идентификатор бронирования
+
++ Request (appliation/json)
+    + Attributes (Request__Booking_Pay)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Booking_Pay)
+
 # Group Карты
 
 **Карта** - платежная карта пользователя. Она используется для списания/оплаты средств за бронирование.
@@ -392,6 +412,41 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__Card_Add)
+
+# Group Платежи
+
+**Платежи** - информация об оплатах и других финансовых транзакциях, которые Palms инициировал от имени клиента в IPSP.
+
+## Получить мои платежи [GET /user/payments{?page_size,page}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User_Payments)
+
+## Получить платеж по ID [GET /payments/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор транзакции
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Payment)
 
 # Data Structures
 
@@ -585,6 +640,7 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + reason: `it's just okay` (string, optional) - причина изменения статуса бронирования. например причина отмены
 + area (Area) - корт бронирования
 + club (Club) - клуб бронирования
++ payment (Payment) - информация об оплате бронирования
 
 ### `Response__User_Bookings` (Response__Collection)
 + data (array)
@@ -614,6 +670,16 @@ https://api.palms.tennis/slots?page=1&page_size=10
   + (Booking)
   + (Booking)
 
+
+### `Request__Booking_Pay` (object)
++ card_id: 1 (number, optional) - id карты для оплаты. не передавайте id оплаты новой картой
+
+### `Response__Booking_Pay` (Response__OK)
++ data (object)
+  + id: 1 (number) - идентификатор платежа
+  + type: `payment` (string) - тип платежа
+  + `checkout_url`: `https://fondy.com/checkout_url` (string) - адрес страницы Fondy IPSP для добавления новой карты
+
 # Cards
 
 ### Card (object)
@@ -636,5 +702,41 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 ### `Request__Card_Add` (object)
 
-### `Response__Card_Add` (object)
+### `Response__Card_Add` (Response__OK)
++ data (object)
+  + id: 1 (number) - идентификатор платежа
+  + type: `auth` (string) - тип платежа
+  + `checkout_url`: `https://fondy.com/checkout_url` (string) - адрес страницы Fondy IPSP для добавления новой карты
+
+# Payments
+
+### `Payment_Type` (enum[string])
++ `AUTH`
++ `PAYMENT`
+
+### `Payment_Status` (enum[string])
++ `CREATED`
++ `PROCESSING`
++ `DECLINED`
++ `APPROVED`
++ `EXPIRED`
++ `REVERSED`
+
+### Payment (object)
++ id: `1` (number) - внутренний идентификатор платежа в системе Palms
++ type: `AUTH` (Payment_Type) - тип платежа
 + `checkout_url`: `https://fondy.com/checkout_url` (string) - адрес страницы Fondy IPSP для добавления новой карты
++ `ipsp_id`: `ipsp_id_eg_1` (string) - идентификатор платежа в платежном шлюзе
++ `ipsp_type`: `fondy` (string) - название IPSP через которых проводился платеж
++ amount: `120` (number) - сумма платежа в копейках/центах без разделителей. 120 - 1 грн 20 коп
++ currency: `UAH` (string) - валюта платежа
++ status: `CREATED` (Payment_Status) - статус транзакции
++ card (Card) - карта с которой была проведена оплата
+
+### `Response__User_Payments` (Response__Collection)
++ data (array)
+  + (Payment)
+  + (Payment)
+
+### `Response__Payment` (Response__OK)
++ data (Payment)

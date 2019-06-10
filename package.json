@@ -15,7 +15,10 @@
     "start-player": "aglio -s -i player.apib --theme-fullWidth=true",
     "build": "aglio -i index.apib --theme-fullWidth=true -o dist/index.html",
     "release": "yarn build && yarn deploy",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "build-player": "aglio -i player.apib --theme-fullWidth=true -o dist-player/index.html",
+    "release-player": "yarn build-player && yarn deploy-player",
+    "deploy-player": "gh-pages -d dist-player --repo git@github.com:palmstennis/palms.player.docs.git"
   },
   "repository": {
     "type": "git",
