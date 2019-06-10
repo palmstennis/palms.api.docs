@@ -142,6 +142,44 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__User)
 
+## Изменение номера телефона 1/2. Запрос [POST /user/change_phone_number]
+
++ Request (application/json)
+    + Attributes (Request__User__Change_Phone_Number)
+
++ Response 200 (application/json)
+    + Attributes (Response__User__Change_Phone_Number)
+
+## Изменение номера телефона 2/2. Подтверждение [POST /user/change_phone_number/confirm]
+
++ Request (application/json)
+    + Attributes (Request__User__Change_Phone_Number_Confirm)
+
++ Response 200 (application/json)
+    + Attributes (Response__User__Change_Phone_Number_Confirm)
+
+
+## Facebook. Привязка учетной записи  [POST /user/socials/facebook]
+
++ Request (application/json)
+    + Attributes (Request__User__Facebook_Attach)
+
++ Response 200 (application/json)
+    + Attributes (Response__User__Facebook_Attach)
+
++ Response 403 (application/json)
+    + Attributes (Response__User__Facebook_Attach__403)
+
++ Response 400 (application/json)
+    + Attributes (Response__User__Facebook_Attach__400)
+
+## Facebook. Удаление связи [DELETE /user/socials/facebook]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (Response__User__Facebook_Detach)
+
 # Group Авторизация
 
 ## Авторизация по телефон/пароль [POST /user/signin]
@@ -151,6 +189,16 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__Auth__Signin)
+
+## Регистрация/Авторизация с Facebook [POST /user/signin/facebook]
+
+Это единый роут для авторизации и регистрации пользователя через Facebook. В случае регистрации нового пользователя, пользователю нужно дополнительно подтвердить номер телефона с помощью метода `/user/change_phone_number`.
+
++ Request (application/json)
+    + Attributes (Request__Auth__Facebook)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Facebook)
 
 ## Восстановление пароля 1/2. Запрос кода из СМС [POST /user/reset]
 
@@ -464,6 +512,12 @@ https://api.palms.tennis/slots?page=1&page_size=10
 ### `Response__OK`
 + data (object, fixed-type)
 
+
+### `Response__Error`
++ error (object, fixed-type)
+  + type: `error_type` (string) - тип ошибки
+  + message: `Long error message text` (string) - длинный текст ошибки
+
 ## Auth structures
 
 ### Auth (object)
@@ -528,12 +582,19 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 ### `Response__Auth__Refresh` (Response__Auth)
 
+### `Request__Auth__Facebook` (object)
++ token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
+
+### `Response__Auth__Facebook` (Response__Auth)
+
 ## Users
 
 ### User (object)
 + id: 1 (number) - идентификатор пользователя
 + phone_number: `+380938765432` (string) - номер телефона пользователя
 + name: `Сергей` (string) - имя пользователя
++ `verified_at`: `2019-06-25T23:23:23` (string) - время завершения проверки пользователя. если установлен, значит пользователь подтвредил телефон и он может пользоваться Palms.
++ `facebook_id`: `123456` (string) - id пользоваля в Facebook. Устанавливается, если клиент зарегистрировался с Facebook или вошел в привязал ее к своей учетной записи
 
 ### `Response__User` (Response__OK)
 + data (User)
@@ -541,6 +602,44 @@ https://api.palms.tennis/slots?page=1&page_size=10
 ### `Request__User__Patch` (object)
 + name: `Иван` (string) - новое имя пользователя
 
+### `Request__User__Change_Phone_Number` (object)
++ phone_number: `+380938765432` (string) - номер телефона пользователя
+
+### `Response__User__Change_Phone_Number` (Response__OK)
++ data (object)
+  + opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен для восстановления пароля по коду из СМС
++ dev (object)
+  + otp_code: `4783` (string, required) - код из СМС
+
+### `Request__User__Change_Phone_Number_Confirm` (object)
++ opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен для восстановления пароля по коду из СМС
++ otp_code: `4783` (string, required) - код из СМС
+
+### `Response__User__Change_Phone_Number_Confirm` (Response__OK)
++ data (User)
+
+
+### `Request__User__Facebook_Attach` (object)
++ token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
+
+### `Response__User__Facebook_Attach` (Response__OK)
++ data (User)
+
+
+### `Response__User__Facebook_Attach__403` (Response__Error)
++ error
+  + type: `facebook_is_attached`
+  + message: `This facebook account is attached to another profile`
+
+### `Response__User__Facebook_Attach__400` (Response__Error)
++ error
+  + type: `facebook_invalid_token`
+  + message: `Facebook token is invalid`
+
+### `Request__User__Facebook_Detach` (object)
+
+### `Response__User__Facebook_Detach` (Response__OK)
++ data (User)
 
 ## Clubs
 
