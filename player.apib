@@ -42,6 +42,16 @@ Authorization: Bearer XXXXX
 https://api.palms.tennis/slots?page=1&page_size=10
 ```
 
+## Идентификатор устройства (обязательно)
+
+Для всех запросов к Palms API нужно передать
+
+```
+X-Device-ID: XXXYYY
+```
+
+где `XXXYYY` - уникальный идентификатор устройства. Он будет использоваться для менеджмента ваших устройств. Мы используем этот идентификатор для менеджмента ваших подписок на Push уведомления и с целью фиксации всех ваших устройств, чтобы вы могли отменить авторизацию устройства удаленно в случае потери или кражи устройства.
+
 ## Ошибки
 
 ### Ошибка валидации
@@ -255,6 +265,22 @@ https://api.palms.tennis/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__Auth__Refresh)
+
+
+## Логаут [POST /user/logout]
+
+В поцессе логаута мы инвалидируем токен доступа переданный нам в шапке запроса, а также деактивируем подписки на уведомления пользователя.
+
++ Request (appliation/json)
+    + Attributes (Request__Auth__Logout)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Logout)
 
 # Group Клубы
 
@@ -575,6 +601,9 @@ https://api.palms.tennis/slots?page=1&page_size=10
 + token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTU5ODI5Mzg4LCJqdGkiOiI0NmI2OTRhOGMxNWU0NjU1YjQ5ZGYzOTMyNjFiMDQxMCIsInVzZXJfaWQiOjN9.rlhzqQ37cue97ExsGRhaOG_CZxUWYNsrfk7wGrPe4mE` (string) - access токен
 
 ### `Response__Auth__Verify` (Response__OK)
+
+### `Request__Auth__Logout` (object)
+### `Response__Auth__Logout` (Response__OK)
 
 
 ### `Request__Auth__Refresh` (object)
