@@ -13,12 +13,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "aglio -s -i index.apib --theme-fullWidth=true",
     "start-player": "aglio -s -i player.apib --theme-fullWidth=true",
-    "build": "aglio -i index.apib --theme-fullWidth=true -o dist/index.html",
-    "release": "yarn build && yarn deploy",
-    "deploy": "gh-pages -d dist",
+    "build-club": "aglio -i club.apib --theme-fullWidth=true -o dist-club/index.html",
+    "release-club": "yarn build-club && yarn deploy-club",
+    "deploy-club": "gh-pages -d dist-club",
     "build-player": "aglio -i player.apib --theme-fullWidth=true -o dist-player/index.html",
     "release-player": "yarn build-player && yarn deploy-player",
-    "deploy-player": "gh-pages -d dist-player --repo git@github.com:palmstennis/palms.player.docs.git"
+    "deploy-player": "gh-pages -d dist-player --repo git@github.com:palmstennis/palms.player.docs.git",
+    "release": "yarn release-player && yarn release-club"
   },
   "repository": {
     "type": "git",
