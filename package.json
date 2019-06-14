@@ -10,8 +10,9 @@
   },
   "devDependencies": {},
   "scripts": {
+    "postinstall": "mkdir dist-club && mkdir dist-player",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "aglio -s -i index.apib --theme-fullWidth=true",
+    "start-club": "aglio -s -i club.apib --theme-fullWidth=true",
     "start-player": "aglio -s -i player.apib --theme-fullWidth=true",
     "build-club": "aglio -i club.apib --theme-fullWidth=true -o dist-club/index.html",
     "release-club": "yarn build-club && yarn deploy-club",
