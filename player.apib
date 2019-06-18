@@ -208,15 +208,29 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Auth__Signin)
 
-## Регистрация/Авторизация с Facebook [POST /user/signin/facebook]
-
-Это единый роут для авторизации и регистрации пользователя через Facebook. В случае регистрации нового пользователя, пользователю нужно дополнительно подтвердить номер телефона с помощью метода `/user/change_phone_number`.
+## Авторизация с Facebook [POST /user/signin/facebook]
 
 + Request (application/json)
     + Attributes (Request__Auth__Facebook)
 
 + Response 200 (application/json)
     + Attributes (Response__Auth__Facebook)
+
++ Response 404 (application/json)
+    + Attributes (Response__Auth__Facebook__404)
+
+## Регистрация с Facebook [POST /user/signup/facebook]
+
+Перед тем как вызывать этот метод пользователь должен попробовать использовать токен fb для авторизации. Если данная учетка FB не привязана к учетке Palms, то начинаем процедуру регистрации.
+
+Для этого нужно запросить подтвеждение телефона `user/signup`. И после получения кода вызываем этот метод, который одновременно проверит телефон и привяжет FB к новой учетке.
+
++ Request (application/json)
+    + Attributes (Request__Auth__Signup__Facebook)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Signup__Facebook)
+
 
 ## Восстановление пароля 1/2. Запрос кода из СМС [POST /user/reset]
 
@@ -596,7 +610,6 @@ X-Device-ID: XXXYYY
   + otp_code: `4783` (string) - код из СМС. для автотестов на дев среде
 
 ### `Request__Auth__SignupConfirm` (object)
-+ phone_number: `+380938765432` (string, required) - номер телефона пользователя
 + name: `Сергей` (string, required) - имя пользователя
 + password: `12345678` (string, required) - пароль пользователя
 + otp_code: `4783` (string, required) - код из СМС
@@ -620,9 +633,20 @@ X-Device-ID: XXXYYY
 ### `Response__Auth__Refresh` (Response__Auth)
 
 ### `Request__Auth__Facebook` (object)
-+ token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
++ facebook_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
 
 ### `Response__Auth__Facebook` (Response__Auth)
+
+### `Response__Auth__Facebook__404` (object)
++ error (object)
+  + type: `facebook_not_attached` (string) - тип ошибки
+
+### `Request__Auth__Signup__Facebook` (object)
++ facebook_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
++ otp_code: `4783` (string, required) - код из СМС
++ opt_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен для восстановления пароля по коду из СМС
+
+### `Response__Auth__Signup__Facebook` (Response__Auth)
 
 ## Users
 
@@ -657,7 +681,7 @@ X-Device-ID: XXXYYY
 
 
 ### `Request__User__Facebook_Attach` (object)
-+ token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
++ facebook_token: `ae39fbbb5aabc65acbd3c8053c18daa1e70a3d3c` (string, required) - токен доступа Facebook
 
 ### `Response__User__Facebook_Attach` (Response__OK)
 + data (User)
