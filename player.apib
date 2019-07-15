@@ -398,7 +398,7 @@ X-Device-ID: XXXYYY
     + Attributes (Response__User_Bookings)
 
 
-## Забронировать слоты [PATCH /bookings/book]
+## Забронировать слоты [POST /bookings/book]
 
 + Request (appliation/json)
     + Attributes (Request__Booking_Book)
@@ -411,7 +411,7 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Booking_Book)
 
-## Отменить бронирование [PATCH /bookings/cancel-booking]
+## Отменить бронирование [POST /bookings/{id}/cancel-booking]
 
 + Request (appliation/json)
     + Attributes (Request__Booking_Cancel)
@@ -420,6 +420,8 @@ X-Device-ID: XXXYYY
         ```
         Authorization: Bearer XXXXX
         ```
+    + Parameters
+      + id: 10 (number, required) - идентификатор бронирования
 
 + Response 200 (application/json)
     + Attributes (Response__Booking_Cancel)
