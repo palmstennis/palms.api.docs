@@ -728,6 +728,10 @@ X-Device-ID: XXXYYY
 + facebook_title: `Теннисный клуб "Palms"` (string) - название FB страницы клуба
 + facebook_link: `https://www.facebook.com/sasha.goreniuk` (string) - ссылка на FB страницу клуба
 + areas (array[Area]) - корты клуба
++ options: (object) - настройки клуба в Palms. Зависит от бизнес-процессов клуба
+  + default_cancelation_time: `10800` (number) - время в секундах для бесплатной отмены бронирования. Считает от даты старта бронирования. 0 - нет бесплатной отмены
++ features: (object) - возможности клуба в Palms. Зависит от интеграции и настроек клуба
+  + online_payments: `true` (boolean) - доступно онлайн оплата
 
 ### `Response__Clubs` (Response__Collection)
 + data (array)
