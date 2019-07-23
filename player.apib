@@ -398,6 +398,21 @@ X-Device-ID: XXXYYY
     + Attributes (Response__User_Bookings)
 
 
+## Получить данные бронирования [GET /user/bookings/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор бронирования
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Booking)
+
 ## Забронировать слоты [POST /bookings/book]
 
 + Request (appliation/json)
@@ -411,7 +426,7 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Booking_Book)
 
-## Отменить бронирование [POST /bookings/{id}/cancel-booking]
+## Отменить бронирование [POST /user/bookings/{id}/cancel]
 
 + Request (appliation/json)
     + Attributes (Request__Booking_Cancel)
@@ -426,7 +441,7 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Booking_Cancel)
 
-## Оплатить бронирование [POST /bookings/{id}/pay]
+## Оплатить бронирование [POST /user/bookings/{id}/pay]
 
 Пользователь может оплатить бронирование как с сохраненной картой, так и с новой.
 
@@ -481,7 +496,7 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Card)
 
-## Удалить карту [DELETE /cards/{id}]
+## Удалить карту [DELETE /user/cards/{id}]
 
 При удалении карты мы затираем токен каты и ее нельзя больше использовать для оплат на IPSP
 
@@ -497,7 +512,7 @@ X-Device-ID: XXXYYY
 
 + Response 200 (application/json)
 
-## Добавить новую карту [POST /cards]
+## Добавить новую карту [POST /user/cards]
 
 Для добавления новой карты без оплаты услуг нужно получить `checkout_url` и использовать страницу IPSP для добавления карты. Для встраивания формы добавления в приложения можно воспользоваться Vue JS виджетом от Fondy IPSP.
 
