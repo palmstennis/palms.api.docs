@@ -535,6 +535,9 @@ X-Device-ID: XXXYYY
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
   + page: 1 (number, optional) - номер страницы
+  + statuses: `APPROVED,DECLINED` (string, optional) - (фильтр) статус бронирования
+  + date_from: `2019-05-14` (string, optional) - вернуть платежи после указанной даты
+  + date_to: `2019-05-15` (string, optional) - вернуть платежи до указанной даты
 
 + Request (appliation/json)
     + Headers
@@ -917,6 +920,9 @@ X-Device-ID: XXXYYY
 + currency: `UAH` (string) - валюта платежа
 + status: `CREATED` (Payment_Status) - статус транзакции
 + card (Card) - карта с которой была проведена оплата
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создание платежная
++ `processed_at`: `2019-08-10T00:00:00` (string) - дата совершения платежа
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления платежа
 
 ### `Response__User_Payments` (Response__Collection)
 + data (array)

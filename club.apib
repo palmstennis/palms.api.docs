@@ -331,6 +331,52 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
     + Attributes (Response__Booking)
 
+# Group Платежи
+
+### Статусы платежей
+
+| Статус | Описание |
+|---|---|
+| `CREATED` | Платеж создан, но не оплачен |
+| `PROCESSING` | Платеж в обработке |
+| `DECLINED` | Платеж не прошел |
+| `APPROVED` | Плаатеж прошел успешно |
+| `EXPIRED` | Вышло время оплаты платежа. Его больше нельзя оплатить |
+| `REVERSED` | Платеж отменен. Средства вернутся плательщику |
+
+## Получить список [GET /club/payments{?page_size,page,status,date_from,date_to}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+  + statuses: `APPROVED,DECLINED` (string, optional) - (фильтр) статус бронирования
+  + date_from: `2019-05-14` (string, optional) - вернуть платежи после указанной даты
+  + date_to: `2019-05-15` (string, optional) - вернуть платежи до указанной даты
+
++ Request (appliation/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Payments)
+
+## Получить модель [GET /club/payments/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор бронирования
+
++ Request (appliation/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Payment)
+
 # Data Structures
 
 ## Responses
@@ -380,6 +426,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
 + finished_at: `2019-08-23T12:23:23+00:00Z` (string) - дата завершения бронирования
++ payment: (Payment) - оплата по бронированию
 
 ### `Booking__Update__Request` (object)
 
@@ -461,3 +508,31 @@ REQUESTED -> APPROVED -> CONFIRMED
 + price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
 + currency: `UAH` (string) - валюта стоимости.
 + area_id: 1 (number) - идентификатор корта, к которому относится слот
+
+# Payments
+
+### `Payment_Status` (enum[string])
++ `CREATED`
++ `PROCESSING`
++ `DECLINED`
++ `APPROVED`
++ `EXPIRED`
++ `REVERSED`
+
+### Payment (object)
++ id: `1` (number) - внутренний идентификатор платежа в системе Palms
++ amount: `120` (number) - сумма платежа в копейках/центах без разделителей. 120 - 1 грн 20 коп
++ currency: `UAH` (string) - валюта платежа
++ status: `CREATED` (Payment_Status) - статус транзакции
++ user: (User) - плательщик
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создание платежная
++ `processed_at`: `2019-08-10T00:00:00` (string) - дата совершения платежа
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления платежа
+
+### `Response__Payments` (Response__Collection)
++ data (array)
+  + (Payment)
+  + (Payment)
+
+### `Response__Payment` (Response__OK)
++ data (Payment)
