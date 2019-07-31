@@ -137,7 +137,7 @@ X-Device-ID: XXXYYY
 
 ## Получить данные о пользователе [GET /user/me]
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -149,7 +149,7 @@ X-Device-ID: XXXYYY
 
 ## Изменить данные пользователя [PATCH /user/me]
 
-+ Request (appliation/json)
++ Request (application/json)
     + Attributes (Request__User__Patch)
     + Headers
 
@@ -293,7 +293,7 @@ X-Device-ID: XXXYYY
 
 В поцессе логаута мы инвалидируем токен доступа переданный нам в шапке запроса, а также деактивируем подписки на уведомления пользователя.
 
-+ Request (appliation/json)
++ Request (application/json)
     + Attributes (Request__Auth__Logout)
     + Headers
 
@@ -351,7 +351,7 @@ X-Device-ID: XXXYYY
   + date_to: `2019-05-13` (string, required) - вернуть слоты заканчивая этой датой
   + club_id: 1 (number, optional) - фильтровать по id клуба
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -366,7 +366,7 @@ X-Device-ID: XXXYYY
 + Parameters
   + id: 10 (number, required) - идентификатор слота бронирования
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -387,7 +387,7 @@ X-Device-ID: XXXYYY
   + page: 1 (number, optional) - номер страницы
   + club_id: 1 (number, optional) - фильтровать по id клуба
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -403,7 +403,7 @@ X-Device-ID: XXXYYY
 + Parameters
   + id: 10 (number, required) - идентификатор бронирования
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -415,7 +415,7 @@ X-Device-ID: XXXYYY
 
 ## Забронировать слоты [POST /bookings/book]
 
-+ Request (appliation/json)
++ Request (application/json)
     + Attributes (Request__Booking_Book)
     + Headers
 
@@ -428,7 +428,7 @@ X-Device-ID: XXXYYY
 
 ## Отменить бронирование [POST /user/bookings/{id}/cancel]
 
-+ Request (appliation/json)
++ Request (application/json)
     + Attributes (Request__Booking_Cancel)
     + Headers
 
@@ -450,7 +450,7 @@ X-Device-ID: XXXYYY
 + Parameters
   + id: 10 (number, required) - идентификатор бронирования
 
-+ Request (appliation/json)
++ Request (application/json)
     + Attributes (Request__Booking_Pay)
     + Headers
 
@@ -471,7 +471,7 @@ X-Device-ID: XXXYYY
   + page_size: 10 (number, optional) - количество записей на странице
   + page: 1 (number, optional) - номер страницы
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -486,7 +486,7 @@ X-Device-ID: XXXYYY
 + Parameters
   + id: 10 (number, required) - идентификатор карты
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -503,7 +503,7 @@ X-Device-ID: XXXYYY
 + Parameters
   + id: 10 (number, required) - идентификатор карты
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -516,7 +516,7 @@ X-Device-ID: XXXYYY
 
 Для добавления новой карты без оплаты услуг нужно получить `checkout_url` и использовать страницу IPSP для добавления карты. Для встраивания формы добавления в приложения можно воспользоваться Vue JS виджетом от Fondy IPSP.
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -530,6 +530,17 @@ X-Device-ID: XXXYYY
 
 **Платежи** - информация об оплатах и других финансовых транзакциях, которые Palms инициировал от имени клиента в IPSP.
 
+### Статусы платежей
+
+| Статус | Описание |
+|---|---|
+| `CREATED` | Платеж создан, но не оплачен |
+| `PROCESSING` | Платеж в обработке |
+| `DECLINED` | Платеж не прошел |
+| `APPROVED` | Плаатеж прошел успешно |
+| `EXPIRED` | Вышло время оплаты платежа. Его больше нельзя оплатить |
+| `REVERSED` | Платеж отменен. Средства вернутся плательщику |
+
 ## Получить мои платежи [GET /user/payments{?page_size,page}]
 
 + Parameters
@@ -539,7 +550,7 @@ X-Device-ID: XXXYYY
   + date_from: `2019-05-14` (string, optional) - вернуть платежи после указанной даты
   + date_to: `2019-05-15` (string, optional) - вернуть платежи до указанной даты
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -554,7 +565,7 @@ X-Device-ID: XXXYYY
 + Parameters
   + id: 10 (number, required) - идентификатор транзакции
 
-+ Request (appliation/json)
++ Request (application/json)
     + Headers
 
         ```
@@ -563,6 +574,34 @@ X-Device-ID: XXXYYY
 
 + Response 200 (application/json)
     + Attributes (Response__Payment)
+
+# Group Уведомления
+
+**Уведомления** - различного рода информационные и другие сообщения, которые Palms отправляет клиенту на устройство. У нас сейчас поддерживается СМС и Push. Цель данного АПИ - настроить логику отправки уведомлений и настроить каналы отправок.
+
+## Добавить или оновить Push токен [POST /user/notifications/config/push]
+
++ Request (application/json)
+    + Attributes (Request__Notification_Push_Add)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
++ Response 404 (application/json)
+
+## Удалить Push токен [DELETE /user/notifications/config/push]
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
 
 # Data Structures
 
@@ -928,3 +967,6 @@ X-Device-ID: XXXYYY
 
 ### `Response__Payment` (Response__OK)
 + data (Payment)
+
+### `Request__Notification_Push_Add` (object)
++ fcm_token: `123i12n3i12n3i12n3012n309123` (string) - токен полученный на клиент от провайдера Push сообщений
