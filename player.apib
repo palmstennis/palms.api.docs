@@ -461,6 +461,27 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Booking_Pay)
 
+## Отменить оплату бронирования [DELETE /user/bookings/{id}/payment]
+
+Отменить предоплату бронирования, чтобы оплатить другим способом (например, наличкой). Это возможно до наступления статуса `APPROVED`. В противном случае клиенту нужно позвонить в клуб для отмены оплаты.
+
++ Parameters
+  + id: 10 (number, required) - идентификатор бронирования
+
++ Request (application/json)
+    + Attributes (Request__Booking_Pay_Cancel)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Booking_Pay_Cancel)
+
++ Response 403 (application/json)
++ Response 404 (application/json)
+
 # Group Карты
 
 **Карта** - платежная карта пользователя. Она используется для списания/оплаты средств за бронирование.
@@ -903,6 +924,12 @@ X-Device-ID: XXXYYY
   + id: 1 (number) - идентификатор платежа
   + type: `payment` (string) - тип платежа
   + `checkout_url`: `https://fondy.com/checkout_url` (string) - адрес страницы Fondy IPSP для добавления новой карты
+
+### `Request__Booking_Pay_Cancel` (object)
++ reason: `asdasdas` (string, optional) - причина отмены
+
+### `Response__Booking_Pay_Cancel` (Response__OK)
++ data (Booking)
 
 # Cards
 
