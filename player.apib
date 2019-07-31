@@ -160,10 +160,28 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__User)
 
+## Изменение пароля [POST /user/change_password]
+
++ Request (application/json)
+    + Attributes (Request__User__Change_Password)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User__Change_Password)
+
 ## Изменение номера телефона 1/2. Запрос [POST /user/change_phone_number]
 
 + Request (application/json)
     + Attributes (Request__User__Change_Phone_Number)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__User__Change_Phone_Number)
@@ -172,6 +190,11 @@ X-Device-ID: XXXYYY
 
 + Request (application/json)
     + Attributes (Request__User__Change_Phone_Number_Confirm)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__User__Change_Phone_Number_Confirm)
@@ -781,6 +804,12 @@ X-Device-ID: XXXYYY
 ### `Request__User__Facebook_Detach` (object)
 
 ### `Response__User__Facebook_Detach` (Response__OK)
++ data (User)
+
+### `Request__User__Change_Password` (object)
++ new_password: `12345678` (string) - новый пароль
+
+### `Response__User__Change_Password` (Response__OK)
 + data (User)
 
 ## Clubs
