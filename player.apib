@@ -438,6 +438,8 @@ X-Device-ID: XXXYYY
 
 ## Забронировать слоты [POST /bookings/book]
 
+В запросе можно опционально передать id карты `card_id`. В этом случае слоты забронируются только при успешном холде средств на карте клиента.
+
 + Request (application/json)
     + Attributes (Request__Booking_Book)
     + Headers
@@ -925,14 +927,14 @@ X-Device-ID: XXXYYY
 + data (Booking)
 
 ### `Request__Booking_Book` (object)
-+ slots_list: 1,2,3,4 (array[number]) - список id слотов для бронирования
++ slots_list: 1,4 (array[number]) - список id слотов для бронирования
++ card_id: 1 (number) - id карт для оплаты бронирований
 
 ### `Response__Booking_Book` (Response__Collection)
 + data (array)
   + (Booking)
   + (Booking)
-  + (Booking)
-  + (Booking)
++ error (object)
 
 ### `Request__Booking_Cancel` (object)
 + id: 1 (number, required) - id бронирования для отмены
