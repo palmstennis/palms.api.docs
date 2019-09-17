@@ -331,11 +331,13 @@ X-Device-ID: XXXYYY
 
 **Клуб** - это бизнес, который предоставляет клиентам услуги по аренде спортивных площадок. Например, теннисных кортов.
 
-## Получить список клубов [GET /clubs{?page_size,page}]
+## Получить список клубов [GET /clubs{?page_size,page,lt_coord,rb_coord}]
 
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
   + page: 1 (number, optional) - номер страницы
+  + lt_coord: `42.23,12.23` (string, optional) - координары левого верхнего угла карты
+  + rb_coord: `42.23,12.23` (string, optional) - координары правого нижнего угла карты
 
 + Response 200 (application/json)
     + Attributes (Response__Clubs)
