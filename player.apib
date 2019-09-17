@@ -327,6 +327,27 @@ X-Device-ID: XXXYYY
 + Response 200 (application/json)
     + Attributes (Response__Auth__Logout)
 
+# Group Города
+
+**Город** - населенный пункт, в котором размещается клуб.
+
+## Получить список городов [GET /cities{?page_size,page}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+
++ Response 200 (application/json)
+    + Attributes (Response__Cities)
+
+## Получить информацию о городе [GET /city/{id}]
+
++ Parameters
+  + id: 10 (number, required) - идентификатор города
+
++ Response 200 (application/json)
+    + Attributes (Response__City)
+
 # Group Клубы
 
 **Клуб** - это бизнес, который предоставляет клиентам услуги по аренде спортивных площадок. Например, теннисных кортов.
@@ -338,6 +359,7 @@ X-Device-ID: XXXYYY
   + page: 1 (number, optional) - номер страницы
   + lt_coord: `42.23,12.23` (string, optional) - координары левого верхнего угла карты
   + rb_coord: `42.23,12.23` (string, optional) - координары правого нижнего угла карты
+  + city_id: 1 (number, optional) - id корода для фильтрации
 
 + Response 200 (application/json)
     + Attributes (Response__Clubs)
@@ -815,6 +837,22 @@ X-Device-ID: XXXYYY
 
 ### `Response__User__Change_Password` (Response__OK)
 + data (User)
+
+## Cities
+
+### City (object)
++ id: 1 (number) - идентификатор города
++ title: `Киев` (string) - название города
+
+### `Response__Cities` (Response__Collection)
++ data (array)
+  + (City)
+  + (City)
+  + (City)
+
+
+### `Response__City` (Response__OK)
++ data (City)
 
 ## Clubs
 
