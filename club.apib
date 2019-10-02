@@ -130,6 +130,19 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__Areas) -->
 
+# Group Клуб
+
+## Получить информацию о клубе [GET /club/me]
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 200 (application/json)
+    + Attributes (Response__Club)
+
 # Group Игроки
 
 **Игрок** - это человек, который хотя бы раз бронировал время в клубе.
@@ -149,6 +162,49 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         ```
 + Response 200 (application/json)
     + Attributes (Response__Users)
+
+## Создать модель [POST /club/users]
+
++ Request (application/json)
+    + Attributes (User_Create_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 201 (application/json)
+    + Attributes (Response__User)
+
+## Получить модель [GET /club/users/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор игрока
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User)
+
+## Обновить модель [PATCH /club/slots/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор игрока
+
++ Request (application/json)
+    + Attributes (User_Patch_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User)
 
 # Group Слоты бронирования
 
@@ -485,12 +541,26 @@ REQUESTED -> APPROVED -> CONFIRMED
 + id: `1` (number) - идентификатор клиента
 + name: `Иван` (string) - имя клиента
 + phone_number: `+380932345678`(string) - номер телефона клиента
++ note: `some text` (string) - какой то комментарий о клиенте
++ has_palms: `true` (boolean) - использует/не использует Palms
+
+### `User_Create_Request`
++ name: `Иван` (string) - имя клиента
++ phone_number: `+380932345678`(string) - номер телефона клиента
++ notes: `some text` (string) - какой то комментарий о клиенте
+
+### `User_Patch_Request`
++ name: `Иван` (string) - имя клиента
++ notes: `some text` (string) - какой то комментарий о клиенте
 
 ### `Response__Users` (Response__Collection)
 + data (array)
   + (User)
   + (User)
   + (User)
+
+### `Response__User` (Response__OK)
++ data (User)
 
 ## Slots
 
@@ -562,3 +632,40 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Response__Payment` (Response__OK)
 + data (Payment)
+
+# Clubs
+
+### Club (object)
++ id: 1 (number) - идентификатор клуба
++ title: `Palms club` (string) - название клуба
++ subtitle: `Теннисный клуб` (string) - видовое описание клуба
++ description: `На линии корта сомкнулись ракетки, Хотелось бы форхенд, но мяч попал в сетку` (string) - описание клуба. Что он говорит о себе
++ prices: `Форматированный текст в markdown с ценами клуба` (string) - форматированный текст в markdown с ценами клуба
++ working_hours_tag: `7:00 - 23:00 без выходных` (string) - короткая строка с режимом работы клуба
++ pricing_tag: `270 - 530 грн/час` (string) -
++ address_tag: `Киев, ул. Академика Ботичелли, 3А` (string) -
++ contact_phone: `+380441234567` (string) -
++ contact_phone_two: `+380987654321` (string) -
++ contact_email: `hello@palms.tennis` (string) -
++ free_services: `Описание бесплатный услуг в markdown` (string) - описание бесплатный услуг в markdown
++ additional_services: `Описание дополнительных услуг в markdown` (string) - описание дополнительных услуг в markdown
++ rules: `описание правил клуба в markdown` (string) - описание правил клуба в markdown
++ facebook_title: `Теннисный клуб "Palms"` (string) - название FB страницы клуба
++ facebook_link: `https://www.facebook.com/sasha.goreniuk` (string) - ссылка на FB страницу клуба
++ areas (array[Area]) - корты клуба
++ options: (object) - настройки клуба в Palms. Зависит от бизнес-процессов клуба
+  + default_cancelation_time: `10800` (number) - время в секундах для бесплатной отмены бронирования. Считает от даты старта бронирования. 0 - нет бесплатной отмены
+  + autocapture: `true` (boolean) - автоматическое списание денег со счета, после наступления статусов Shown, Not shown.
++ features: (object) - возможности клуба в Palms. Зависит от интеграции и настроек клуба
+  + online_payments: `true` (boolean) - доступно онлайн оплата
++ coordinates: (object) - координаты клуба
+  + latitude: `50.26421` (string) - широта
+  + longitude: `30.31432` (string) - долгота
++ images: (array) - изображения клуба
+  + `https://domain.com`
+  + `https://domain.com`
+  + `https://domain.com`
+  + `https://domain.com`
+
+### `Response__Club` (Response__OK)
++ data (Club)
