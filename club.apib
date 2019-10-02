@@ -130,6 +130,26 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__Areas) -->
 
+# Group Игроки
+
+**Игрок** - это человек, который хотя бы раз бронировал время в клубе.
+
+## Поиск игроков [GET /club/users{?search,page,page_size}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+  + search: `380` (string, optional) - строка для поиска. поиск по номеру телефону ил имени
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 200 (application/json)
+    + Attributes (Response__Users)
+
 # Group Слоты бронирования
 
 **Слот** - это ячейка времени на корте, которую пользователь может забронировать для игры.
@@ -465,6 +485,12 @@ REQUESTED -> APPROVED -> CONFIRMED
 + id: `1` (number) - идентификатор клиента
 + name: `Иван` (string) - имя клиента
 + phone_number: `+380932345678`(string) - номер телефона клиента
+
+### `Response__Users` (Response__Collection)
++ data (array)
+  + (User)
+  + (User)
+  + (User)
 
 ## Slots
 
