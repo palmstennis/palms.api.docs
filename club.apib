@@ -486,6 +486,64 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__Payment)
 
+# Group Тарифы
+
+## Получить список [GET /club/tarrifs{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrifs)
+
+## Получить модель [GET /club/tarrifs/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrif)
+
+## Обновить модель [PUT /club/tarrifs/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Attributes (Tarrif_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrif)
+
+## Создать модель [POST /club/tarrifs]
+
++ Request (application/json)
+    + Attributes (Tarrif_Create_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrif)
+
 # Data Structures
 
 ## Responses
@@ -711,3 +769,62 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Response__Club` (Response__OK)
 + data (Club)
+
+# Tarrifs
+
+### Tarrif (object)
++ id: `1` (number) - внутренний идентификатор тарифа в системе Palms
++ result: 20000 (number) - стоимость в валюте клуба
++ title: `в вс все корты по 200` (string) - валюта платежа
++ day_weeks: (array[number]) - день недели
+  + `6`
++ hours_range: (array[number]) - отрезок времени в дне. с 8 до 12 часов
+  + `8`
+  + `12`
++ date_range: (array) - даты в рамках которых действует тариф
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создание тарифы
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления тарифы
+
+### `Response__Tarrifs` (Response__Collection)
++ data (array)
+  + (Tarrif)
+  + (Tarrif)
+
+### `Response__Tarrif` (Response__OK)
++ data (Tarrif)
+
+
+### `Tarrif_Create_Request` (object)
++ result: 20000 (number) - стоимость в валюте клуба
++ title: `в вс все корты по 200` (string) - валюта платежа
++ day_weeks: (array[number]) - день недели
+  + `6`
++ hours_range: (array[number]) - отрезок времени в дне. с 8 до 12 часов
+  + `8`
+  + `12`
++ date_range: (array) - даты в рамках которых действует тариф
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
+
+### `Tarrif_Update_Request` (object)
++ result: 20000 (number) - стоимость в валюте клуба
++ title: `в вс все корты по 200` (string) - валюта платежа
++ day_weeks: (array[number]) - день недели
+  + `6`
++ hours_range: (array[number]) - отрезок времени в дне. с 8 до 12 часов
+  + `8`
+  + `12`
++ date_range: (array) - даты в рамках которых действует тариф
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
