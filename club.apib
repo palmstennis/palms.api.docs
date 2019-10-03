@@ -149,10 +149,12 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 ## Поиск игроков [GET /club/users{?search,page,page_size}]
 
+Только по клиентам клуба
+
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
   + page: 1 (number, optional) - номер страницы
-  + search: `380` (string, optional) - строка для поиска. поиск по номеру телефону ил имени
+  + search: `380` (string, optional) - строка для поиска. поиск по номеру телефону или имени
 
 + Request (application/json)
     + Headers
@@ -162,6 +164,24 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         ```
 + Response 200 (application/json)
     + Attributes (Response__Users)
+
+## Поиск игроков [POST /club/users-palms/{phone_number}]
+
+Только по клиентам клуба
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+  + phone_number: `+380932685446` (string, optional) - номер телефона
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 200 (application/json)
+    + Attributes (Response__User)
 
 ## Создать модель [POST /club/users]
 
@@ -356,6 +376,19 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__Booking)
 
+## Создать модель [POST /club/bookings]
+
++ Request (application/json)
+    + Attributes (Booking__Create__Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Booking)
+
 ## Обновить статус модели [POST /club/bookings/{id}/status]
 
 + Parameters
@@ -478,6 +511,15 @@ REQUESTED -> APPROVED -> CONFIRMED
 + data (Booking)
 
 ## Bookings
+
+### `Booking__Create__Request` (object)
++ `date_from`: `2019-08-23T12:23:23+00:00Z` (string, required) - дата и время начала бронирования
++ `date_to`: `2019-08-23T12:23:23+00:00Z` (string, required) - дата и время начала бронирования
++ price: `20000` (number, optional) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ currency: `UAH` (string, optional) - валюта стоимости.
++ `area_id`: `1` (number) - идентификатор корта
++ `user_id`: `1` (number) - идентификатор пользователя
++ `default_cancelation_time`: `2019-08-23T12:23:23+00:00Z` (string, optional) - дата бесплатной отмены бронирование
 
 ### `Booking_Status` (enum[string])
 + `REQUESTED`
