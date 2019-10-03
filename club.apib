@@ -532,6 +532,21 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__Tarrif)
 
+## Удалить модель [DELETE /club/tarrifs/{id}]
+
+Нельзя удалить последнее правило тарифов
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+
 ## Создать модель [POST /club/tarrifs]
 
 + Request (application/json)
@@ -543,6 +558,105 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 200 (application/json)
   + Attributes (Response__Tarrif)
+
+## Посчитать стоимость [POST /club/tarrifs/calc]
+
++ Request (application/json)
+    + Attributes (Tarrif_Calc_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrif_Calc)
+
+
+# Group Расписание
+
+## Получить список [GET /club/schedule_rules{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__ScheduleRules)
+
+## Получить модель [GET /club/schedule_rules/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__ScheduleRule)
+
+## Обновить модель [PUT /club/schedule_rules/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Attributes (ScheduleRule_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__ScheduleRule)
+
+## Удалить модель [DELETE /club/schedule_rules/{id}]
+
+Нельзя удалить последнее правило тарифов
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+
+## Создать модель [POST /club/schedule_rules]
+
++ Request (application/json)
+    + Attributes (ScheduleRule_Create_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__ScheduleRule)
+
+
+## Посчитать стоимость [POST /club/schedule_rules/calc]
+
++ Request (application/json)
+    + Attributes (ScheduleRule_Calc_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__ScheduleRule_Calc)
 
 # Data Structures
 
@@ -828,3 +942,97 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
+
+### `Tarrif_Calc_Request` (object)
++ date_from: `2019-08-10T00:00:00` (string) - дата начала бронирования
++ date_to: `2019-08-10T00:00:00` (string) - дата завершения бронирования
++ area_id: `1` - зона бронирования
+
+### `Response__Tarrif_Calc` (Response__OK)
++ data (object)
+  + price: `300` (number) - стоимость
+  + currency: `UAH` (string) - валюта
+
+# ScheduleRules
+
+### ScheduleRule (object)
++ id: `1` (number) - внутренний идентификатор правила расписания в системе Palms
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года 1ый корт работает с 8 до 12` (string) - валюта платежа
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `Response__ScheduleRules` (Response__Collection)
++ data (array)
+  + (ScheduleRule)
+  + (ScheduleRule)
+
+### `Response__ScheduleRule` (Response__OK)
++ data (ScheduleRule)
+
+
+### `ScheduleRule_Create_Request` (object)
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года 1ый корт работает с 8 до 12` (string) - валюта платежа
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `ScheduleRule_Update_Request` (object)
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года 1ый корт работает с 8 до 12` (string) - валюта платежа
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+
+
+### `ScheduleRule_Calc_Request` (object)
++ date_from: `2019-08-10T00:00:00` (string) - начало отрезка
++ date_to: `2019-08-20T00:00:00` (string) - конец отрезка
++ area_id: (array) - зона бронирования
+  + 1
+  + 2
+  + 3
+
+### ScheduleRuleModel (object)
++ date: `2019-08-10T00:00:00` (string) - дата
++ area_id: `1` (number) - идентификатор корта
++ hours: (array) - отрезок времени
+  + 8
+  + 20
+
+### `Response__ScheduleRule_Calc` (Response__Collection)
++ data (array)
+  + (ScheduleRuleModel)
+  + (ScheduleRuleModel)
+  + (ScheduleRuleModel)
+  + (ScheduleRuleModel)
