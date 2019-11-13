@@ -440,6 +440,22 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
     + Attributes (Response__Booking)
 
+## Зафиксировать оплату наличными [POST /club/bookings/{id}/pay]
+
++ Parameters
+  + price: 20000 (number, required) - сумма платежа
+
++ Request (application/json)
+    + Attributes (Booking__Pay__Cash__Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Booking)
+
 # Group Платежи
 
 ### Статусы платежей
@@ -731,6 +747,9 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + `status`: APPROVED (string, required) - статус бронирования
 + `reason` (string, required) - причина смены статуса
+
+### `Booking__Pay__Cash__Request` (object)
++ price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
 
 ## Areas
 ### Area (object)
