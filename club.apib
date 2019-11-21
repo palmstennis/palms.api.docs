@@ -114,7 +114,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 Согласно стандарту [E.164](https://en.wikipedia.org/wiki/E.164) в международном формате.
 
 Например, `+380932345678`
-<!--
+
 # Group Корты
 
 ## Получить список [GET /club/areas{?page_size&page}]
@@ -128,7 +128,52 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         Authorization: Bearer XXXXX
 
 + Response 200 (application/json)
-    + Attributes (Response__Areas) -->
+    + Attributes (Response__Areas)
+
+## Получить модель [GET /club/areas/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор корта
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Area)
+
+## Обновить модель [PATCH /club/areas/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор корта
+
++ Request (application/json)
+    + Attributes (Area_Patch_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Area)
+
+## Удалить модель [DELETE /club/areas/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор корта
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
+
 
 # Group Клуб
 
@@ -210,7 +255,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__User)
 
-## Обновить модель [PATCH /club/slots/{id}]
+## Обновить модель [PATCH /club/users/{id}]
 
 + Parameters
   + id: 1 (number, required) - идентификатор игрока
@@ -225,6 +270,109 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__User)
+
+## Удалить модель [DELETE /club/users/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор игрока
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
+
+## Импорт из CSV [POST /club/users/import]
+
++ Request
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        Content-Type: multipart/form-data, boundary=AaB03x
+        Content-Disposition: form-data; name="file"; filename="*.csv"
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User_Import)
+
+
+# Group Тренеры
+
+## Поиск тренеров [GET /club/coaches{?search,page,page_size}]
+
++ Parameters
+  + page_size: 10 (number, optional) - количество записей на странице
+  + page: 1 (number, optional) - номер страницы
+  + search: `380` (string, optional) - строка для поиска. поиск по номеру телефону или имени
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 200 (application/json)
+    + Attributes (Response__Users)
+
+
+## Создать модель [POST /club/coaches]
+
++ Request (application/json)
+    + Attributes (User_Create_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 201 (application/json)
+    + Attributes (Response__User)
+
+## Получить модель [GET /club/coaches/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор игрока
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User)
+
+## Обновить модель [PATCH /club/coaches/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор игрока
+
++ Request (application/json)
+    + Attributes (User_Patch_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__User)
+
+## Удалить модель [DELETE /club/coaches/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тренера
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
 
 # Group Слоты бронирования
 
@@ -306,6 +454,20 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Response 200 (application/json)
     + Attributes (Response__Slot)
+
+
+## Удалить модель [DELETE /club/slots/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор слота
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
 
 # Group Бронирование
 
@@ -456,6 +618,23 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
     + Attributes (Response__Booking)
 
+
+## Экспорт в CSV [GET /club/bookings/export{?status,date_from,date_to}]
+
++ Parameters
+  + status: `AVAILABLE` (string, optional) - (фильтр) статус бронирования
+  + date_from: `2019-05-14` (string, optional) - вернуть бронирования после указанной даты
+  + date_to: `2019-05-15` (string, optional) - вернуть бронирования до указанной даты
+
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 204 (application/json)
+
 # Group Платежи
 
 ### Статусы платежей
@@ -474,7 +653,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
   + page: 10 (number, optional) - номер страницы
-  + statuses: `APPROVED,DECLINED` (string, optional) - (фильтр) статус бронирования
+  + statuses: `APPROVED,DECLINED` (string, optional) - (фильтр) статус платежа
   + date_from: `2019-05-14` (string, optional) - вернуть платежи после указанной даты
   + date_to: `2019-05-15` (string, optional) - вернуть платежи до указанной даты
 
@@ -490,7 +669,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 ## Получить модель [GET /club/payments/{id}]
 
 + Parameters
-  + id: 1 (number, required) - идентификатор бронирования
+  + id: 1 (number, required) - идентификатор платежа
 
 + Request (application/json)
     + Headers
@@ -501,6 +680,22 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 200 (application/json)
   + Attributes (Response__Payment)
+
+
+## Экспорт в CSV [GET /club/payments/export{?status,date_from,date_to}]
+
++ Parameters
+  + statuses: `APPROVED,DECLINED` (string, optional) - (фильтр) статус платежа
+  + date_from: `2019-05-14` (string, optional) - вернуть платежи после указанной даты
+  + date_to: `2019-05-15` (string, optional) - вернуть платежи до указанной даты
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 204 (application/json)
 
 # Group Тарифы
 
@@ -639,7 +834,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 Нельзя удалить последнее правило тарифов
 
 + Parameters
-  + id: 1 (number, required) - идентификатор тарифа
+  + id: 1 (number, required) - идентификатор правила
 
 + Request (application/json)
     + Headers
@@ -729,6 +924,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + area (Area) - корт, на который создается бронь
 + user (User) - пользователь, который забронировал корт
 + slot (Slot, optional) - пользователь, который забронировал корт
++ note: `some text` (string) - какой то комментарий о бронировнии
 + created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
 + finished_at: `2019-08-23T12:23:23+00:00Z` (string) - дата завершения бронирования
@@ -742,6 +938,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + currency: `UAH` (string) - валюта стоимости.
 + `area_id`: `1` (number) - идентификатор корта (опциональный, если передан slot_id)
 + `slot_id`: `1` (number) - идентификатор слота (опциональный, если передан area_id)
++ note: `some text` (string) - какой то комментарий о бронировнии
 
 ### `Booking__Status__Request` (object)
 
@@ -757,6 +954,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + title: `Корт 1` (string) - название корта
 + created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
++ enabled: `true` (boolean) - включена или нет в выдачу игроку
 + parameters (object) - параметры корта. значения и ключи управляются из админки Palms.
     + covering_type: `hard`
     + parameter_2: `value`
@@ -769,6 +967,9 @@ REQUESTED -> APPROVED -> CONFIRMED
 ### `Response__Area` (Response__OK)
 + data (Area)
 
+### `Area_Patch_Request`
++ enabled: `true` (boolean) - включена или нет в выдачу игроку
+
 ## Users
 ### User (object)
 + id: `1` (number) - идентификатор клиента
@@ -780,11 +981,11 @@ REQUESTED -> APPROVED -> CONFIRMED
 ### `User_Create_Request`
 + name: `Иван` (string) - имя клиента
 + phone_number: `+380932345678`(string) - номер телефона клиента
-+ notes: `some text` (string) - какой то комментарий о клиенте
++ note: `some text` (string) - какой то комментарий о клиенте
 
 ### `User_Patch_Request`
 + name: `Иван` (string) - имя клиента
-+ notes: `some text` (string) - какой то комментарий о клиенте
++ note: `some text` (string) - какой то комментарий о клиенте
 
 ### `Response__Users` (Response__Collection)
 + data (array)
@@ -794,6 +995,12 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Response__User` (Response__OK)
 + data (User)
+
+### `Response__User_Import` (Response__OK)
++ data
+    + tolal: 10 (number)
+    + added: 9 (number)
+    + not_added: 1 (number)
 
 ## Slots
 
@@ -805,6 +1012,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
 + currency: `UAH` (string) - валюта стоимости.
 + area (Area) - корт, к которому относится слот
++ note `some text` (string) - заметка, отображается клубу
 + created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
 
@@ -829,6 +1037,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
 + currency: `UAH` (string) - валюта стоимости.
 + area_id: 1 (number) - идентификатор корта, к которому относится слот
++ note (string) - заметка, отображается клубу
 
 ### `Slot_Update_Request`
 + date_from: `2019-08-23T12:23:23+00:00Z` (string) - дата и время начала слота
@@ -837,6 +1046,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
 + currency: `UAH` (string) - валюта стоимости.
 + area_id: 1 (number) - идентификатор корта, к которому относится слот
++ note - заметка, отображается клубу
 
 # Payments
 
@@ -920,6 +1130,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
++ priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создание тарифы
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления тарифы
 
@@ -946,6 +1157,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
++ priority: 10 (number) - приоритет
 
 ### `Tarrif_Update_Request` (object)
 + result: 20000 (number) - стоимость в валюте клуба
@@ -961,6 +1173,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
++ priority: 10 (number) - приоритет
 
 ### `Tarrif_Calc_Request` (object)
 + date_from: `2019-08-10T00:00:00` (string) - дата начала бронирования
@@ -988,6 +1201,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
++ priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
 
@@ -1013,6 +1227,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
++ priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
 
@@ -1029,6 +1244,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
++ priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
 
