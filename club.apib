@@ -145,6 +145,21 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__Area)
 
+
+## Создать модель [POST /club/areas/]
++ Parameters
+
++ Request (application/json)
+    + Attributes (Area_Create_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Area)
+
 ## Обновить модель [PATCH /club/areas/{id}]
 
 + Parameters
@@ -984,9 +999,16 @@ REQUESTED -> APPROVED -> CONFIRMED
 + created_at: `2019-08-23T12:23:23+00:00Z` (string) - дата создания
 + updated_at: `2019-08-23T12:23:23+00:00Z` (string) - дата последнего обновления
 + enabled: `true` (boolean) - включена или нет в выдачу игроку
-+ parameters (object) - параметры корта. значения и ключи управляются из админки Palms.
-    + covering_type: `hard`
-    + parameter_2: `value`
++ parameters (array) - параметры корта. значения и ключи управляются из админки Palms.
+    + (object)
+        + id: `1` (number)
+        + key (object)
+          + id: `1` (number)
+          + value: `tennis_court_type` (string)
+        + options (object)
+          + id: `1` (number)
+          + value: `hard` (string)
++ area_type (AreaTypeResponse) - тип помещенияс доступными параметрами
 
 ### `Response__Areas` (Response__Collection)
 + data (array)
@@ -998,6 +1020,11 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Area_Patch_Request`
 + enabled: `true` (boolean) - включена или нет в выдачу игроку
+
+### `Area_Create_Request`
++ title: `Корт1` (string) - название корта
++ enabled: `true` (boolean) - включена или нет в выдачу игроку
++ area_type: `1` (number) - id типа помещения
 
 ## Users
 ### User (object)
@@ -1305,3 +1332,41 @@ REQUESTED -> APPROVED -> CONFIRMED
   + (ScheduleRuleModel)
   + (ScheduleRuleModel)
   + (ScheduleRuleModel)
+
+# AreaTypes objects
+
+### AreaType (object)
++ id: `1` (number) - внутренний идентификатор типа помещения в системе Palms
++ value `court` (string) - тип помещения
+
+### AreaParametersKeys (object)
++ value `tennis_court_covering_type` (string) - наименование ключа
++ area_type (AreaType) - тип корта
+
+### AreaParametersOptions (object)
++ value `carpet` (string) - наименование опции
++ key (AreaParametersKeys) - ключ, к которому относится опция
+
+### AreaParameters (object)
++ area (Area) - корт, к которому относится слот
++ area_type (AreaType) - тип корта
++ key (AreaParametersKeys) - ключ, к которому относится опция
++ options (AreaParametersOptions) - опция
+
+https://app.apiary.io/alex314/editor
+
+### OptionsResponse (object)
++ id: `1` (number)
++ value: `hard` (string)
+
+
+### `AreaTypeResponse` (object)
++ id: `1` (number)
++ value: `court` (string)
++ parameters (array) - параметры доступные у типа помещения. значения и ключи управляются из админки Palms.
+    + (object)
+        + id: `1` (number)
+        + key (object)
+          + id: `1` (number)
+          + value: `tennis_court_covering_type` (string)
+          + options (array[OptionsResponse])
