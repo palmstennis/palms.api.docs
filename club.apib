@@ -402,6 +402,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
   + date_from: `2019-05-12` (string, optional) - вернуть слоты начиная с этой даты
   + date_to: `2019-05-13` (string, optional) - вернуть слоты заканчивая этой датой
   + status: `BOOKED` (string, optional) - статус слота
+  + area_type_id: 1 (number, required) - тип помещения
 
 + Request (application/json)
     + Headers
@@ -512,6 +513,7 @@ REQUESTED -> APPROVED -> CONFIRMED
   + status: `AVAILABLE` (string, optional) - (фильтр) статус бронирования
   + date_from: `2019-05-14` (string, optional) - вернуть бронирования после указанной даты
   + date_to: `2019-05-15` (string, optional) - вернуть бронирования до указанной даты
+  + area_type_id: 1 (number, optional) - тип помещения
 
 + Request (application/json)
     + Headers
