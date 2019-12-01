@@ -120,7 +120,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 ## Получить список [GET /club/areas{?page_size&page}]
 
 + Parameters
-  + `page_size` (number, optional) - количество записей на странице
+  + page_size (number, optional) - количество записей на странице
   + page (number, optional) - номер страницы
 
 + Request (application/json)
@@ -394,7 +394,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 Статус `BOOKED` ставится автоматически, когда пользователь бронирует слот через Palms.
 
-## Получить список [GET /club/slots{?page_size,page,date_from,date_to,status}]
+## Получить список [GET /club/slots{?page_size,page,date_from,date_to,status,area_type_id}]
 
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
@@ -505,7 +505,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 После наступления финального статуса, в модели Booking проставляется поле `finished_at`.
 
-## Получить список [GET /club/bookings{?page_size,page,status,date_from,date_to}]
+## Получить список [GET /club/bookings{?page_size,page,status,date_from,date_to,area_type_id}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -650,7 +650,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 | `EXPIRED` | Вышло время оплаты платежа. Его больше нельзя оплатить |
 | `REVERSED` | Платеж отменен. Средства вернутся плательщику |
 
-## Получить список [GET /club/payments{?page_size,page,status,date_from,date_to}]
+## Получить список [GET /club/payments{?page_size,page,statuses,date_from,date_to}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
