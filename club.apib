@@ -770,6 +770,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__Tarrif)
 
+
 ## Посчитать стоимость [POST /club/tarrifs/calc]
 
 + Request (application/json)
@@ -782,10 +783,23 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__Tarrif_Calc)
 
+## Обновить приоритет [POST /club/tarrifs/update-priority]
+Для обновления приоритетов надо передавать параметры списком
+[{rule_id: N, priority: 10}, ...{}]
++ Request (application/json)
+    + Attributes (Tarrif_Priority_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrif)
+
 
 # Group Расписание
 
-## Получить список [GET /club/schedule_rules{?page_size,page}]
+## Получить список [GET /club/schedule-rules{?page_size,page}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -800,7 +814,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__ScheduleRules)
 
-## Получить модель [GET /club/schedule_rules/{id}]
+## Получить модель [GET /club/schedule-rules/{id}]
 
 + Parameters
   + id: 1 (number, required) - идентификатор тарифа
@@ -814,7 +828,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__ScheduleRule)
 
-## Обновить модель [PUT /club/schedule_rules/{id}]
+## Обновить модель [PUT /club/schedule-rules/{id}]
 
 + Parameters
   + id: 1 (number, required) - идентификатор тарифа
@@ -829,7 +843,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__ScheduleRule)
 
-## Удалить модель [DELETE /club/schedule_rules/{id}]
+## Удалить модель [DELETE /club/schedule-rules/{id}]
 
 Нельзя удалить последнее правило тарифов
 
@@ -844,7 +858,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 200 (application/json)
 
-## Создать модель [POST /club/schedule_rules]
+## Создать модель [POST /club/schedule-rules]
 
 + Request (application/json)
     + Attributes (ScheduleRule_Create_Request)
@@ -857,7 +871,7 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__ScheduleRule)
 
 
-## Посчитать стоимость [POST /club/schedule_rules/calc]
+## Посчитать стоимость [POST /club/schedule-rules/calc]
 
 + Request (application/json)
     + Attributes (ScheduleRule_Calc_Request)
@@ -868,6 +882,19 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 200 (application/json)
   + Attributes (Response__ScheduleRule_Calc)
+
+## Обновить приоритет [POST /club/schedule-rules/update-priority]
+Для обновления приоритетов надо передавать параметры списком
+[{rule_id: N, priority: 10}, ...{}]
++ Request (application/json)
+    + Attributes (Tarrif_Priority_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Tarrif)
 
 # Data Structures
 
@@ -1141,6 +1168,11 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Response__Tarrif` (Response__OK)
 + data (Tarrif)
+
+
+### `Tarrif_Priority_Request` (object)
++ rule_id: `1` (number)
++ priority: `1` (number)
 
 
 ### `Tarrif_Create_Request` (object)
