@@ -115,6 +115,40 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 Например, `+380932345678`
 
+# Group Типы помещения
+
+## Получить список [GET /club/area-types/{?page_size,page}]
+
++ Parameters
+  + page_size (number, optional) - количество записей на странице
+  + page (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__AreaTypes)
+
+
+## Получить модель [GET /club/area-types/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор корта
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__AreaType)
+
+
 # Group Корты
 
 ## Получить список [GET /club/areas{?page_size,page}]
@@ -1370,3 +1404,13 @@ REQUESTED -> APPROVED -> CONFIRMED
           + id: `1` (number)
           + value: `tennis_court_covering_type` (string)
           + options (array[OptionsResponse])
+
+
+### `Response__AreaTypes` (Response__Collection)
++ data (array)
+  + (AreaTypeResponse)
+  + (AreaTypeResponse)
+
+
+### `Response__AreaType`
++ data (AreaTypeResponse)
