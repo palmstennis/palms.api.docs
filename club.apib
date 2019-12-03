@@ -702,7 +702,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 | `EXPIRED` | Вышло время оплаты платежа. Его больше нельзя оплатить |
 | `REVERSED` | Платеж отменен. Средства вернутся плательщику |
 
-## Получить список [GET /club/payments{?page_size,page,statuses,date_from,date_to,player_id,coach_id}]
+## Получить список [GET /club/payments{?page_size,page,statuses,date_from,date_to,player_id,coach_id,payment_method}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -712,6 +712,7 @@ REQUESTED -> APPROVED -> CONFIRMED
   + date_to: `2019-05-15` (string, optional) - вернуть платежи до указанной даты
   + player_id: 1 (number, optional) - id клубного игрока
   + coach_id: 1 (number, optional) - id тренера
+  + payment_method: `ONLINE,CASH,SUBSCRIPTION` (string, optional) - (фильтр) тип платежа
 
 + Request (application/json)
     + Headers
@@ -1161,6 +1162,15 @@ REQUESTED -> APPROVED -> CONFIRMED
 + note - заметка, отображается клубу
 
 # Payments
+
+### `Payment_Type` (enum[string])
++ `AUTH`
++ `PAYMENT`
+
+### `Payment_Method` (enum[string])
++ `ONLINE`
++ `CASH`
++ `SUBSCRIPTION`
 
 ### `Payment_Status` (enum[string])
 + `CREATED`
