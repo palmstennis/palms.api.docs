@@ -117,7 +117,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 # Group Корты
 
-## Получить список [GET /club/areas{?page_size&page}]
+## Получить список [GET /club/areas{?page_size,page}]
 
 + Parameters
   + page_size (number, optional) - количество записей на странице
@@ -125,7 +125,9 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 + Request (application/json)
     + Headers
+        ```
         Authorization: Bearer XXXXX
+        ```
 
 + Response 200 (application/json)
     + Attributes (Response__Areas)
@@ -147,7 +149,6 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 
 ## Создать модель [POST /club/areas/]
-+ Parameters
 
 + Request (application/json)
     + Attributes (Area_Create_Request)
