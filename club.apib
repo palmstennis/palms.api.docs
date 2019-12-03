@@ -1152,6 +1152,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + facebook_title: `Теннисный клуб "Palms"` (string) - название FB страницы клуба
 + facebook_link: `https://www.facebook.com/sasha.goreniuk` (string) - ссылка на FB страницу клуба
 + areas (array[Area]) - корты клуба
++ area_types (array[AreaTypeResponse]) - тип помещенияс доступными параметрами
 + options: (object) - настройки клуба в Palms. Зависит от бизнес-процессов клуба
   + default_cancelation_time: `10800` (number) - время в секундах для бесплатной отмены бронирования. Считает от даты старта бронирования. 0 - нет бесплатной отмены
   + autocapture: `true` (boolean) - автоматическое списание денег со счета, после наступления статусов Shown, Not shown.
@@ -1352,8 +1353,6 @@ REQUESTED -> APPROVED -> CONFIRMED
 + area_type (AreaType) - тип корта
 + key (AreaParametersKeys) - ключ, к которому относится опция
 + options (AreaParametersOptions) - опция
-
-https://app.apiary.io/alex314/editor
 
 ### OptionsResponse (object)
 + id: `1` (number)
