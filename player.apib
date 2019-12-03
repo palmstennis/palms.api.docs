@@ -389,7 +389,7 @@ X-Device-ID: XXXYYY
 Игроки Palms видят слоты со статусом `AVAILABLE`.
 Статус `BOOKED` ставится автоматически, когда игрок бронирует слот через Palms.
 
-## Получить список [GET /slots{?page_size,page,date_from,date_to,search,club_id,city_id}]
+## Получить список [GET /slots{?page_size,page,date_from,date_to,search,club_id,city_id,area_type_id}]
 
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
@@ -398,6 +398,7 @@ X-Device-ID: XXXYYY
   + date_to: `2019-05-13` (string, required) - вернуть слоты заканчивая этой датой
   + club_id: 1 (number, optional) - фильтровать по id клуба
   + city_id: 1 (number, optional) - фильтровать по id города
+  + area_type_id: 1 (number, optional) - тип помещения
 
 + Request (application/json)
     + Headers
@@ -428,12 +429,13 @@ X-Device-ID: XXXYYY
 
 **Бронирование** - заявка на игру. Она включает время, клуб, корт и цену. Это основная сущность системы и главная модель. Любая игра через Palms - это бронирование.
 
-## Получить мои бронирования [GET /user/bookings{?page_size,page,club_id}]
+## Получить мои бронирования [GET /user/bookings{?page_size,page,club_id,area_type_id}]
 
 + Parameters
   + page_size: 10 (number, optional) - количество записей на странице
   + page: 1 (number, optional) - номер страницы
   + club_id: 1 (number, optional) - фильтровать по id клуба
+  + area_type_id: 1 (number, optional) - тип помещения
 
 + Request (application/json)
     + Headers
