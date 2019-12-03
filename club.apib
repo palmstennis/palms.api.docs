@@ -1055,11 +1055,28 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Area_Patch_Request`
 + enabled: `true` (boolean) - включена или нет в выдачу игроку
++ area_type: `1` (number) - id типа помещения
++ parameters: (array) - набор параметров для ипа помещения. Для удаления старых опций нужно передать пустой список []
+    + (object)
+      + key_id: `1` (number) - id ключа
+      + options_id: `1` (number) - опция относящася к ключу
+    + (object)
+      + key_id: `1` (number) - id ключа
+      + value: `произвольная опция` (string) - текстовое значение. options_id и value не могут быть установленны одновременно, но одно из значений обязательно.
+
 
 ### `Area_Create_Request`
 + title: `Корт1` (string) - название корта
 + enabled: `true` (boolean) - включена или нет в выдачу игроку
 + area_type: `1` (number) - id типа помещения
++ parameters: (array) - набор параметров для ипа помещения
+    + (object)
+      + key_id: `1` (number) - id ключа
+      + options_id: `1` (number) - опция относящася к ключу
+    + (object)
+      + key_id: `1` (number) - id ключа
+      + value: `произвольная опция` (string) - текстовое значение. options_id и value не могут быть установленны одновременно, но одно из значений обязательно.
+
 
 ## Users
 ### User (object)
