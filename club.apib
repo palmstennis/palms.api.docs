@@ -953,6 +953,152 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__ScheduleRule)
 
+
+
+# Group Schedule Window
+
+## Получить список [GET /club/schedule-window{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SWs)
+
+## Получить модель [GET /club/schedule-window/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор schedule window
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SW)
+
+## Обновить модель [PATCH /club/schedule-window/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор schedule window
+
++ Request (application/json)
+    + Attributes (SW_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SW)
+
+## Удалить модель [DELETE /club/schedule-window/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор schedule window
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
+
+## Создать модель [POST /club/schedule-window]
+
++ Request (application/json)
+    + Attributes (SW_Create_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SW)
+
+
+# Group Schedule Window Date
+
+## Получить список [GET /club/schedule-window-date{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SWDs)
+
+## Получить модель [GET /club/schedule-window-date/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор schedule window date
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SWD)
+
+## Обновить модель [PATCH /club/schedule-window-date/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор schedule window date
+
++ Request (application/json)
+    + Attributes (SWD_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SW)
+
+## Удалить модель [DELETE /club/schedule-window-date/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор schedule window date
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
+
+## Создать модель [POST /club/schedule-window-date]
+
++ Request (application/json)
+    + Attributes (SWD_Create_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__SWD)
+
+
 # Data Structures
 
 ## Responses
@@ -1445,3 +1591,58 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Response__AreaType`
 + data (AreaTypeResponse)
+
+
+# Schedule Window objects
+
+### `ScheduleWindowType` (enum[string])
++ `AUTO`
++ `MANUAL`
+
+### `Response__SWs` (Response__Collection)
++ data (array)
+  + (ScheduleWindow)
+  + (ScheduleWindow)
+
+### `Response__SW` (Response__OK)
++ data (ScheduleWindow)
+
+### `SW_Create_Request` (object)
++ schedule_type: `AUTO` (ScheduleWindowType)
++ days: `7` (number)
+
+### `SW_Update_Request` (object)
++ schedule_type: `AUTO` (ScheduleWindowType)
++ days: `7` (number)
+days обязателен если schedule_type AUTO
+
+### ScheduleWindow (object)
++ id: `1` (number)
++ club_id: `1` (number)
++ schedule_type: `AUTO` (ScheduleWindowType)
++ days: `7` (number)
+
+
+# Schedule Window Date objects
+
+### `Response__SWDs` (Response__Collection)
++ data (array)
+  + (ScheduleWindowDate)
+  + (ScheduleWindowDate)
+
+### `Response__SWD` (Response__OK)
++ data (ScheduleWindowDate)
+
+### `SWD_Create_Request` (object)
++ schedule_window_date: `2019-08-10T00:00:00` (string) - дата
++ enabled: `true` (boolean)
+
+### `SWD_Update_Request` (object)
++ enabled: `true` (boolean)
+
+### ScheduleWindowDate (object)
++ id: `1` (number)
++ club_id: `1` (number)
++ schedule_window_id: `1` (number)
++ schedule_window_date: `2019-08-10T00:00:00` (string) - дата
++ enabled: `true` (boolean)
