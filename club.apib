@@ -1552,14 +1552,17 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### AreaType (object)
 + id: `1` (number) - внутренний идентификатор типа помещения в системе Palms
-+ value `court` (string) - тип помещения
++ value: `court` (string) - тип помещения
++ title: `somestring` (string) - тайтл, поддерживается локализация
 
 ### AreaParametersKeys (object)
-+ value `tennis_court_covering_type` (string) - наименование ключа
++ title: `somestring` (string) - тайтл, поддерживается локализация
++ value: `tennis_court_covering_type` (string) - наименование ключа
 + area_type (AreaType) - тип корта
 
 ### AreaParametersOptions (object)
-+ value `carpet` (string) - наименование опции
++ title: `somestring` (string) - тайтл, поддерживается локализация
++ value: `carpet` (string) - наименование опции
 + key (AreaParametersKeys) - ключ, к которому относится опция
 
 ### AreaParameters (object)
@@ -1570,17 +1573,20 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### OptionsResponse (object)
 + id: `1` (number)
++ title: `somestring` (string) - тайтл, поддерживается локализация
 + value: `hard` (string)
 
 
 ### `AreaTypeResponse` (object)
 + id: `1` (number)
 + value: `court` (string)
++ title: `somestring` (string) - тайтл, поддерживается локализация
 + parameters (array) - параметры доступные у типа помещения. значения и ключи управляются из админки Palms.
     + (object)
         + id: `1` (number)
         + key (object)
           + id: `1` (number)
+          + title: `somestring` (string) - тайтл, поддерживается локализация
           + value: `tennis_court_covering_type` (string)
           + options (array[OptionsResponse])
 
