@@ -1100,6 +1100,192 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 204 (application/json)
 
+# Group Абонементы
+
+## Получить список [GET /subscriptions{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Subscriptions)
+
+
+## Получить модель [GET /subscriptions/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор абонемента
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Subscription)
+
+## Купить абонемент [POST /subscriptions/{id}/buy]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор абонемента
+
++ Request (application/json)
+    + Attributes (Subscription_Buy_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
+
+
+# Group Абонементы клуба
+
+## Получить список [GET /club/subscriptions{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Subscriptions)
+
+
+## Получить модель [GET /club/subscriptions/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор абонемента
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Subscription)
+
+## Обновить модель [PATCH /club/subscriptions/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор шаблона
+
++ Request (application/json)
+    + Attributes (Subscription_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Subscription)
+
+## Создать модель [POST /club/subscriptions]
+
++ Request (application/json)
+    + Attributes (Subscription_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__Subscription)
+
+
+## Продать абонемент игроку [POST /club/subscriptions/{id}/sell]
+
++ Request (application/json)
+    + Attributes (SellSubscription__Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
+
+
+
+# Group Абонементы игрока для клуба
+
+## Получить список [GET /club/usersubscriptions{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscriptions)
+
+
+## Получить модель [GET /club/usersubscriptions/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор абонемента
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
+
+
+# Group Купленные абонементы игрока
+
+## Получить список [GET /user/subscriptions{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscriptions)
+
+
+## Получить модель [GET /user/subscriptions/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор абонемента
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
 
 # Data Structures
 
@@ -1654,3 +1840,72 @@ days обязателен если schedule_type AUTO
 + schedule_window_id: `1` (number)
 + schedule_window_date: `2019-08-10T00:00:00` (string) - дата
 + enabled: `true` (boolean)
+
+# Subscription objects
+### `Response__Subscriptions` (Response__Collection)
++ data (array)
+  + (Subscription)
+  + (Subscription)
+
+### `Response__Subscription` (Response__OK)
++ data (Subscription)
+
+### Subscription (object)
++ id: `1` (number)
++ title: `somestring` (string) - тайтл
++ club_id: `1` (number)
++ price: `50000` (number)
++ games_number :`10` (number) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
++ validity_period: `365` (number) - количство дней действительности абонемента
++ area_types: (array) - типы зона бронирования
+  + 1
+  + 2
+  + 3
++ day_weeks: (array) - дни недели
+  + 1
+  + 2
+  + 3
++ hours: (array) - часы по которым абонемент действует
+  + 8
+  + 20
++ active: `true` (boolean)
+
+### `Subscription_Update_Request` (object)
++ title: `somestring` (string) - тайтл
++ price: `50000` (number)
++ games_number :`10` (number) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
++ validity_period: `365` (number) - количство дней действительности абонемента
++ area_types: (array) - типы зона бронирования
+  + 1
+  + 2
+  + 3
++ day_weeks: (array) - дни недели
+  + 1
+  + 2
+  + 3
++ hours: (array) - часы по которым абонемент действует
+  + 8
+  + 20
++ active: `true` (boolean)
+
+### `Subscription_Buy_Request` (object)
++ card_id: `1` (number, required)
+
+### `SellSubscription__Request` (object)
++ player_id: `1` (number, required)
+
+### UserSubscription (object)
++ id: `1` (number)
++ subscription (Subscription) - шаблон абонемента
++ user (User) - пользователь, который купил абонемент
++ games_number: `10` (number) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
++ validity_period: `365` (number) - количство дней действительности абонемента
+
+
+### `Response__UserSubscription` (Response__OK)
++ data (UserSubscription)
+
+### `Response__UserSubscriptions` (Response__Collection)
++ data (array)
+  + (UserSubscription)
+  + (UserSubscription)
