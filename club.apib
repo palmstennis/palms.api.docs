@@ -1102,7 +1102,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 # Group Абонементы
 
-## Получить список [GET /subscriptions{?page_size,page}]
+## Получить список [GET /subscriptions{?page_size,page,club_id}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -1151,7 +1151,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 # Group Абонементы клуба
 
-## Получить список [GET /club/subscriptions{?page_size,page}]
+## Получить список [GET /club/subscriptions{?page_size,page,show_inactive,active}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -1240,7 +1240,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 # Group Абонементы игрока для клуба
 
-## Получить список [GET /club/usersubscriptions{?page_size,page}]
+## Получить список [GET /club/usersubscriptions{?page_size,page,player_id}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -1274,7 +1274,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 # Group Купленные абонементы игрока
 
-## Получить список [GET /user/subscriptions{?page_size,page}]
+## Получить список [GET /user/subscriptions{?page_size,page,club_id}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
