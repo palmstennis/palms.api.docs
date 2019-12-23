@@ -1100,54 +1100,6 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 204 (application/json)
 
-# Group Абонементы
-
-## Получить список [GET /subscriptions{?page_size,page,club_id}]
-
-+ Parameters
-  + `page_size`: 1 (number, optional) - количество записей на странице
-  + page: 10 (number, optional) - номер страницы
-  + club_id: 1 (number, optional) - фильтр по клубу
-
-+ Request (application/json)
-    + Headers
-        ```
-        Authorization: Bearer XXXXX
-        ```
-
-+ Response 200 (application/json)
-  + Attributes (Response__Subscriptions)
-
-
-## Получить модель [GET /subscriptions/{id}]
-
-+ Parameters
-  + id: 1 (number, required) - идентификатор абонемента
-
-+ Request (application/json)
-    + Headers
-        ```
-        Authorization: Bearer XXXXX
-        ```
-
-+ Response 200 (application/json)
-  + Attributes (Response__Subscription)
-
-## Купить абонемент [POST /subscriptions/{id}/buy]
-
-+ Parameters
-  + id: 1 (number, required) - идентификатор абонемента
-
-+ Request (application/json)
-    + Attributes (Subscription_Buy_Request)
-    + Headers
-        ```
-        Authorization: Bearer XXXXX
-        ```
-
-+ Response 200 (application/json)
-  + Attributes (Response__UserSubscription)
-
 
 # Group Абонементы клуба
 
@@ -1271,39 +1223,6 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
   + Attributes (Response__UserSubscription)
 
-
-# Group Купленные абонементы игрока
-
-## Получить список [GET /user/subscriptions{?page_size,page,club_id}]
-
-+ Parameters
-  + `page_size`: 1 (number, optional) - количество записей на странице
-  + page: 10 (number, optional) - номер страницы
-  + club_id: 1 (number, optional) - фильтр по клубу
-
-+ Request (application/json)
-    + Headers
-        ```
-        Authorization: Bearer XXXXX
-        ```
-
-+ Response 200 (application/json)
-  + Attributes (Response__UserSubscriptions)
-
-
-## Получить модель [GET /user/subscriptions/{id}]
-
-+ Parameters
-  + id: 1 (number, required) - идентификатор абонемента
-
-+ Request (application/json)
-    + Headers
-        ```
-        Authorization: Bearer XXXXX
-        ```
-
-+ Response 200 (application/json)
-  + Attributes (Response__UserSubscription)
 
 # Data Structures
 
@@ -1871,10 +1790,10 @@ days обязателен если schedule_type AUTO
 + price: `50000` (number)
 + games_number :`10` (number) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
 + validity_period: `365` (number) - количство дней действительности абонемента
-+ area_types: (array) - типы зона бронирования
-  + 1
-  + 2
-  + 3
++ area_types: (array) - типы зон бронирования
+  + (ShortAreaTypeResponse)
+  + (ShortAreaTypeResponse)
+
 + day_weeks: (array) - дни недели
   + 1
   + 2
@@ -1923,3 +1842,9 @@ days обязателен если schedule_type AUTO
 + data (array)
   + (UserSubscription)
   + (UserSubscription)
+
+### `ShortAreaTypeResponse` (object)
++ id: `1` (number)
++ title: `Somestring` (string) - тайтл
++ value: `somestring` (string) - значение
++ logo: `https://foo.bar/some.img` (string) - лого
