@@ -1829,10 +1829,13 @@ days обязателен если schedule_type AUTO
 
 ### UserSubscription (object)
 + id: `1` (number)
-+ subscription (Subscription) - шаблон абонемента
++ title: `somestring` (string) - тайтл
++ price: `50000` (number)
++ currency: `UAH` (string) - валюта
 + user (User) - пользователь, который купил абонемент
 + games_number: `10` (number) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
 + validity_period: `365` (number) - количство дней действительности абонемента
++ payment: (Payment)
 
 
 ### `Response__UserSubscription` (Response__OK)
