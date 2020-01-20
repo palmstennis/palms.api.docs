@@ -954,6 +954,93 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__ScheduleRule)
 
 
+# Group Расписание Тренеров
+
+## Получить список [GET /club/coach-rules{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachScheduleRules)
+
+## Получить модель [GET /club/coach-rules/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachScheduleRule)
+
+## Обновить модель [PATCH /club/coach-rules/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Attributes (CoachScheduleRule_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachScheduleRule)
+
+## Удалить модель [DELETE /club/coach-rules/{id}]
+
+Нельзя удалить последнее правило
+
++ Parameters
+  + id: 1 (number, required) - идентификатор правила
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+
+## Создать модель [POST /club/coach-rules]
+
++ Request (application/json)
+    + Attributes (CoachScheduleRule_Create_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachScheduleRule)
+
+
+## Обновить приоритет [POST /club/coach-rules/update-priority]
+Для обновления приоритетов надо передавать параметры списком
+[{rule_id: N, priority: 10}, ...{}]
++ Request (application/json)
+    + Attributes (Tarrif_Priority_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachScheduleRule)
+
 
 # Group Schedule Window
 
@@ -1509,7 +1596,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 ### Tarrif (object)
 + id: `1` (number) - внутренний идентификатор тарифа в системе Palms
 + result: 20000 (number) - стоимость в валюте клуба
-+ title: `в вс все корты по 200` (string) - валюта платежа
++ title: `в вс все корты по 200` (string) - заголовок
 + day_weeks: (array[number]) - день недели
   + `6`
 + hours_range: (array[number]) - отрезок времени в дне. с 8 до 12 часов
@@ -1592,7 +1679,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + result: (array[number]) - рабочие часы
   + 8
   + 12
-+ title: `в пн с 23 июля 2019 по 20 сент 2019 года 1ый корт работает с 8 до 12` (string) - валюта платежа
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года 1ый корт работает с 8 до 12` (string) - заголовок
 + day_weeks: (array[number]) - день недели
   + `6`
 + date_range: (array) - даты в рамках которых действует правило расписания
@@ -1618,7 +1705,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + result: (array[number]) - рабочие часы
   + 8
   + 12
-+ title: `в пн с 23 июля 2019 по 20 сент 2019 года 1ый корт работает с 8 до 12` (string) - валюта платежа
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года...` (string) - заголовок
 + day_weeks: (array[number]) - день недели
   + `6`
 + date_range: (array) - даты в рамках которых действует правило расписания
@@ -1647,8 +1734,6 @@ REQUESTED -> APPROVED -> CONFIRMED
 + priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
-
-
 
 ### `ScheduleRule_Calc_Request` (object)
 + date_from: `2019-08-10T00:00:00` (string) - начало отрезка
@@ -1856,3 +1941,81 @@ days обязателен если schedule_type AUTO
 + title: `Somestring` (string) - тайтл
 + value: `somestring` (string) - значение
 + logo: `https://foo.bar/some.img` (string) - лого
+
+
+# CoachScheduleRules
+
+### CoachScheduleRule (object)
++ id: `1` (number) - внутренний идентификатор правила расписания в системе Palms
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `тайтл` (string) - произвольный заголовок
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ coaches: (array[number]) - идентификаторы тренеров
+  + `1`
+  + `2`
++ priority: 10 (number) - приоритет
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `Response__CoachScheduleRules` (Response__Collection)
++ data (array)
+  + (CoachScheduleRule)
+  + (CoachScheduleRule)
+
+### `Response__CoachScheduleRule` (Response__OK)
++ data (CoachScheduleRule)
+
+
+### `CoachScheduleRule_Create_Request` (object)
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года...` (string) - заголовок
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ coaches: (array[number]) - идентификаторы тренеров
+  + `1`
+  + `2`
++ priority: 10 (number) - приоритет
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `CoachScheduleRule_Update_Request` (object)
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года...` (string) - заголовок
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ priority: 10 (number) - приоритет
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `CoachScheduleRule_Calc_Request` (object)
++ date_from: `2019-08-10T00:00:00` (string) - начало отрезка
++ date_to: `2019-08-20T00:00:00` (string) - конец отрезка
++ area_id: (array) - зона бронирования
+  + 1
+  + 2
+  + 3
