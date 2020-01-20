@@ -1257,6 +1257,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + currency: `UAH` (string, optional) - валюта стоимости.
 + `area_id`: `1` (number) - идентификатор корта
 + `user_id`: `1` (number) - идентификатор пользователя
++ `coach_id`: `1` (number, optional) - идентификатор тренера
 + `default_cancelation_time`: `2019-08-23T12:23:23+00:00Z` (string, optional) - дата бесплатной отмены бронирование
 
 ### `Booking_Status` (enum[string])
@@ -1573,7 +1574,11 @@ REQUESTED -> APPROVED -> CONFIRMED
 ### `Tarrif_Calc_Request` (object)
 + date_from: `2019-08-10T00:00:00` (string) - дата начала бронирования
 + date_to: `2019-08-10T00:00:00` (string) - дата завершения бронирования
-+ area_id: `1` - зона бронирования
++ area_id: 1 (number, required) - зона бронирования
++ ordering: (array[number], optional) - очередность
+  + `1`
+  + `2`
++ coach_id: 1 (number, optional) - id тренера
 
 ### `Response__Tarrif_Calc` (Response__OK)
 + data (object)
