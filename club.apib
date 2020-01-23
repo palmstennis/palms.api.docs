@@ -1564,26 +1564,33 @@ REQUESTED -> APPROVED -> CONFIRMED
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления платежа
 
 ### PaymentStats (object)
-+ num_total_payments: `10` (number) - количество всех платежей
-+ sum_total_payments: `55000` (number) - сумма всех платежей
++ total:
+  + count: `10` (number) - количество всех платежей
+  + amount: `55000` (number) - сумма всех платежей
 
-+ num_approved_payments: `5` (number) - количество платежей со статусом `APPROVED`
-+ sum_approved_payments: `30000` (number) - сумма платежей со статусом `APPROVED`
++ approved:
+  + count: `5` (number) - количество платежей со статусом `APPROVED`
+  + amount: `30000` (number) - сумма платежей со статусом `APPROVED`
 
-+ num_reversed_payments: `3` (number) - количество платежей со статусом `REVERSED`
-+ sum_reversed_payments: `5000` (number) - сумма платежей со статусом `REVERSED`
++ reversed:
+  + count: `3` (number) - количество платежей со статусом `REVERSED`
+  + amount: `5000` (number) - сумма платежей со статусом `REVERSED`
 
-+ num_declined_payments: `2` (number) - количество платежей со статусом `DECLINED`
-+ sum_declined_payments: `20000` (number) - сумма платежей со статусом `DECLINED`
++ declined:
+  + count: `2` (number) - количество платежей со статусом `DECLINED`
+  + amount: `20000` (number) - сумма платежей со статусом `DECLINED`
 
-+ num_created_payments: `0` (number) - количество платежей со статусом `CREATED`
-+ sum_created_payments: `0` (number) - сумма платежей со статусом `CREATED`
++ created:
+  + count: `0` (number) - количество платежей со статусом `CREATED`
+  + amount: `0` (number) - сумма платежей со статусом `CREATED`
 
-+ num_processing_payments: `0` (number) - количество платежей со статусом `PROCESSING`
-+ sum_processing_payments: `0` (number) - сумма платежей со статусом `PROCESSING`
++ processing:
+  + count: `0` (number) - количество платежей со статусом `PROCESSING`
+  + amount: `0` (number) - сумма платежей со статусом `PROCESSING`
 
-+ num_expired_payments: `0` (number) - количество платежей со статусом `EXPIRED`
-+ sum_expired_payments: `0` (number) - сумма платежей со статусом `EXPIRED`
++ expired:
+  + count: `0` (number) - количество платежей со статусом `EXPIRED`
+  + amount: `0` (number) - сумма платежей со статусом `EXPIRED`
 
 
 ### `Response__Payments` (Response__Collection)
