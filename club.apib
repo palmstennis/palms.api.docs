@@ -739,7 +739,18 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__Payment)
 
 ## Получить статистику [GET /club/payments/stats{?statuses,date_from,date_to,player_id,coach_id,payment_method}]
+`total` - Все платежи типа `PAYMENT`
 
+`approved` - списаные деньги (`APPROVED` + `processed_at_isnull=False`)
+
+`reserved` - деньги которые hold на fondy (`APPROVED` + `processed_at_isnull=True`)
+
+`declined` - деньги которые к нам не дойдут (`DECLINED, EXPIRED, REVERSED`)
+
+`CREATED` и `PROCESSING` игнорируются так как они промежуточные и сущесвуют недолго (`PROCESSING` может буть вообще меньше секунды)
+Это касается только `ONLINE` патежей. Кэш и абонемент вотоматически approved
+
+Учитываются только платежи с типом `PAYMENT` (`AUTH` списывает минимальную сумму и возвращает ее обратно что в остатке равно `0`)
 + Parameters
   + statuses: `APPROVED,DECLINED` (string, optional) - (фильтр) статус платежа
   + date_from: `2019-05-14` (string, optional) - вернуть платежи после указанной даты
@@ -1569,28 +1580,16 @@ REQUESTED -> APPROVED -> CONFIRMED
   + amount: `55000` (number) - сумма всех платежей
 
 + approved:
-  + count: `5` (number) - количество платежей со статусом `APPROVED`
-  + amount: `30000` (number) - сумма платежей со статусом `APPROVED`
+  + count: `5` (number) - количество платежей со статусом `APPROVED` которые успешно списаны
+  + amount: `30000` (number) - сумма платежей со статусом `APPROVED`которые успешно списаны
 
-+ reversed:
-  + count: `3` (number) - количество платежей со статусом `REVERSED`
-  + amount: `5000` (number) - сумма платежей со статусом `REVERSED`
++ reserved:
+  + count: `3` (number) - количество платежей со статусом `APPROVED`, но которые еще не списаны в платежной системе
+  + amount: `5000` (number) - сумма платежей со статусом `APPROVED`, но которые еще не списаны в платежной системе
 
 + declined:
-  + count: `2` (number) - количество платежей со статусом `DECLINED`
-  + amount: `20000` (number) - сумма платежей со статусом `DECLINED`
-
-+ created:
-  + count: `0` (number) - количество платежей со статусом `CREATED`
-  + amount: `0` (number) - сумма платежей со статусом `CREATED`
-
-+ processing:
-  + count: `0` (number) - количество платежей со статусом `PROCESSING`
-  + amount: `0` (number) - сумма платежей со статусом `PROCESSING`
-
-+ expired:
-  + count: `0` (number) - количество платежей со статусом `EXPIRED`
-  + amount: `0` (number) - сумма платежей со статусом `EXPIRED`
+  + count: `2` (number) - количество платежей со статусом `DECLINED`, `EXPIRED`, `REVERSED`
+  + amount: `20000` (number) - сумма платежей со статусами `DECLINED`, `EXPIRED`, `REVERSED`
 
 
 ### `Response__Payments` (Response__Collection)
