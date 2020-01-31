@@ -657,10 +657,15 @@ REQUESTED -> APPROVED -> CONFIRMED
     + Attributes (Response__Booking)
 
 ## Зафиксировать оплату наличными или абонементом [POST /club/bookings/{id}/pay]
-
+| Статус | Описание |
+|---|---|
+| `CASH` | Оплата наличными |
+| `SUBSCRIPTION` | Оплата абонементом |
+| `PAYMENT_TERMINAL` | Оплата через платежный терминал |
 + Parameters
   + price: 20000 (number, required) - сумма платежа
   + usersubscription_id: 1 (number, optional) - абонемент
+  + payment_method: `CASH` (string, optional) - способ оплаты
 
 + Request (application/json)
     + Attributes (Booking__Pay__Cash__Request)
@@ -1433,6 +1438,8 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 ### `Booking__Pay__Cash__Request` (object)
 + price: `20000` (number) - стоимость бронирования. Целое число без запятых (20000 - 200.00)
++ usersubscription_id: 1 (number, optional) - абонемент
++ payment_method: `CASH` (string, optional) - способ оплаты
 
 ## Areas
 ### Area (object)
