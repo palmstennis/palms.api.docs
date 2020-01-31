@@ -656,10 +656,11 @@ REQUESTED -> APPROVED -> CONFIRMED
 + Response 200 (application/json)
     + Attributes (Response__Booking)
 
-## Зафиксировать оплату наличными [POST /club/bookings/{id}/pay]
+## Зафиксировать оплату наличными или абонементом [POST /club/bookings/{id}/pay]
 
 + Parameters
   + price: 20000 (number, required) - сумма платежа
+  + usersubscription_id: 1 (number, optional) - абонемент
 
 + Request (application/json)
     + Attributes (Booking__Pay__Cash__Request)
@@ -671,6 +672,19 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Response 200 (application/json)
     + Attributes (Response__Booking)
+
+
+## Доступные методы оплаты букинга [POST /club/bookings/{id}/payment-methods]
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__PaymentMethods)
 
 
 ## Экспорт в CSV [GET /club/bookings/export{?status,date_from,date_to}]
@@ -1966,6 +1980,12 @@ days обязателен если schedule_type AUTO
 
 ### `SellSubscription__Request` (object)
 + player_id: `1` (number, required)
+
+### `Response__PaymentMethods` (Response__Collection)
++ data
+  + subscriptions (array):
+     + (UserSubscription)
+     + (UserSubscription)
 
 ### UserSubscription (object)
 + id: `1` (number)
