@@ -662,10 +662,6 @@ REQUESTED -> APPROVED -> CONFIRMED
 | `CASH` | Оплата наличными |
 | `SUBSCRIPTION` | Оплата абонементом |
 | `PAYMENT_TERMINAL` | Оплата через платежный терминал |
-+ Parameters
-  + price: 20000 (number, required) - сумма платежа
-  + usersubscription_id: 1 (number, optional) - абонемент
-  + payment_method: `CASH` (string, optional) - способ оплаты
 
 + Request (application/json)
     + Attributes (Booking__Pay__Cash__Request)
@@ -679,7 +675,7 @@ REQUESTED -> APPROVED -> CONFIRMED
     + Attributes (Response__Booking)
 
 
-## Доступные методы оплаты букинга [POST /club/bookings/{id}/payment-methods]
+## Доступные методы оплаты букинга [GET /club/bookings/{id}/payment-methods]
 
 + Request (application/json)
     + Headers
