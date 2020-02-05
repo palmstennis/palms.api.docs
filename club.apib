@@ -365,20 +365,21 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         Authorization: Bearer XXXXX
         ```
 + Response 200 (application/json)
-    + Attributes (Response__Users)
+    + Attributes (Response__Coaches)
 
 
 ## Создать модель [POST /club/coaches]
 
 + Request (application/json)
-    + Attributes (User_Create_Request)
+    + Attributes (Coach_Create_Request)
     + Headers
 
         ```
         Authorization: Bearer XXXXX
+        Content-Disposition: form-data; name="coach_picture"; filename="*.jpg"
         ```
 + Response 201 (application/json)
-    + Attributes (Response__User)
+    + Attributes (Response__Coach)
 
 ## Получить модель [GET /club/coaches/{id}]
 
@@ -393,7 +394,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         ```
 
 + Response 200 (application/json)
-    + Attributes (Response__User)
+    + Attributes (Response__Coach)
 
 ## Обновить модель [PATCH /club/coaches/{id}]
 
@@ -401,15 +402,16 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
   + id: 1 (number, required) - идентификатор игрока
 
 + Request (application/json)
-    + Attributes (User_Patch_Request)
+    + Attributes (Coach_Patch_Request)
     + Headers
 
         ```
         Authorization: Bearer XXXXX
+        Content-Disposition: form-data; name="coach_picture"; filename="*.jpg"
         ```
 
 + Response 200 (application/json)
-    + Attributes (Response__User)
+    + Attributes (Response__Coach)
 
 ## Удалить модель [DELETE /club/coaches/{id}]
 
@@ -1518,6 +1520,39 @@ REQUESTED -> APPROVED -> CONFIRMED
     + tolal: 10 (number)
     + added: 9 (number)
     + not_added: 1 (number)
+
+# Coaches
+
+### Coach (object)
++ id: `1` (number) - идентификатор клиента
++ name: `Иван` (string) - имя клиента
++ phone_number: `+380932345678`(string) - номер телефона клиента
++ note: `some text` (string) - какой то комментарий о клиенте
++ price_per_hour: 10000 (number) - цена за час
++ price_with_area: 20000 (number) - цена за час с кортом
++ coach_picture: `file.jpg` (string) - путь к фото
+
+### `Response__Coaches` (Response__Collection)
++ data (Coach)
+  + (Coach)
+  + (Coach)
+  + (Coach)
+
+### `Response__Coach` (Response__OK)
++ data (Coach)
+
+### `Coach_Create_Request`
++ name: `Иван` (string) - имя клиента
++ phone_number: `+380932345678`(string) - номер телефона клиента
++ note: `some text` (string) - какой то комментарий о клиенте
++ price_per_hour: 10000 (number) - цена за час
++ price_with_area: 20000 (number) - цена за час с кортом
+
+### `Coach_Patch_Request`
++ name: `Иван` (string) - имя клиента
++ note: `some text` (string) - какой то комментарий о тренре
++ price_per_hour: 10000 (number) - цена за час
++ price_with_area: 20000 (number) - цена за час с кортом
 
 ## Slots
 
