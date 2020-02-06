@@ -9304,8 +9304,9 @@
       "<span class="hljs-attribute">additionalProperties</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
     </span>}
   </span>}
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="расписание-тренеров" class="resource-group"><h2 class="group-heading">Расписание Тренеров <a href="#расписание-тренеров" class="permalink">&para;</a></h2><div id="расписание-тренеров-получить-список" class="resource"><h3 class="resource-heading">Получить список <a href="#расписание-тренеров-получить-список" class="permalink">&nbsp;&para;</a></h3><div id="расписание-тренеров-получить-список-get" class="action get"><h4 class="action-heading"><div class="name">Получить список</div><a href="#расписание-тренеров-получить-список-get" class="method get">GET</a><code class="uri">/club/coach-rules{?page_size,page}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis/v1</span>/club/coach-rules?<span class="hljs-attribute">page_size=</span><span class="hljs-literal">1</span>&<span class="hljs-attribute">page=</span><span class="hljs-literal">10</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>page_size</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>количество записей на странице</p>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="расписание-тренеров" class="resource-group"><h2 class="group-heading">Расписание Тренеров <a href="#расписание-тренеров" class="permalink">&para;</a></h2><div id="расписание-тренеров-получить-список" class="resource"><h3 class="resource-heading">Получить список <a href="#расписание-тренеров-получить-список" class="permalink">&nbsp;&para;</a></h3><div id="расписание-тренеров-получить-список-get" class="action get"><h4 class="action-heading"><div class="name">Получить список</div><a href="#расписание-тренеров-получить-список-get" class="method get">GET</a><code class="uri">/club/coach-rules{?page_size,page,coach_id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.palms.tennis/v1</span>/club/coach-rules?<span class="hljs-attribute">page_size=</span><span class="hljs-literal">1</span>&<span class="hljs-attribute">page=</span><span class="hljs-literal">10</span>&<span class="hljs-attribute">coach_id=</span><span class="hljs-literal">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>page_size</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>количество записей на странице</p>
 </dd><dt>page</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>10</span></span><p>номер страницы</p>
+</dd><dt>coach_id</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>id тренера</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer XXXXX</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">meta</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">pagination</span>": <span class="hljs-value">{
@@ -9334,10 +9335,7 @@
         <span class="hljs-number">1</span>,
         <span class="hljs-number">2</span>
       ]</span>,
-      "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-        <span class="hljs-number">1</span>,
-        <span class="hljs-number">2</span>
-      ]</span>,
+      "<span class="hljs-attribute">coach</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9360,10 +9358,7 @@
         <span class="hljs-number">1</span>,
         <span class="hljs-number">2</span>
       ]</span>,
-      "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-        <span class="hljs-number">1</span>,
-        <span class="hljs-number">2</span>
-      ]</span>,
+      "<span class="hljs-attribute">coach</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
       "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
       "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9429,9 +9424,9 @@
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
             </span>}</span>,
-            "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+            "<span class="hljs-attribute">coach</span>": <span class="hljs-value">{
+              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
             </span>}</span>,
             "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9474,9 +9469,9 @@
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
               "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
             </span>}</span>,
-            "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+            "<span class="hljs-attribute">coach</span>": <span class="hljs-value">{
+              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
             </span>}</span>,
             "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9515,10 +9510,7 @@
       <span class="hljs-number">1</span>,
       <span class="hljs-number">2</span>
     ]</span>,
-    "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-      <span class="hljs-number">1</span>,
-      <span class="hljs-number">2</span>
-    ]</span>,
+    "<span class="hljs-attribute">coach</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9554,9 +9546,9 @@
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
           "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+        "<span class="hljs-attribute">coach</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
         </span>}</span>,
         "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9578,7 +9570,7 @@
         <span class="hljs-string">"day_weeks"</span>,
         <span class="hljs-string">"date_range"</span>,
         <span class="hljs-string">"areas"</span>,
-        <span class="hljs-string">"coaches"</span>,
+        <span class="hljs-string">"coach"</span>,
         <span class="hljs-string">"priority"</span>,
         <span class="hljs-string">"created_at"</span>,
         <span class="hljs-string">"updated_at"</span>
@@ -9666,10 +9658,7 @@
       <span class="hljs-number">1</span>,
       <span class="hljs-number">2</span>
     ]</span>,
-    "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-      <span class="hljs-number">1</span>,
-      <span class="hljs-number">2</span>
-    ]</span>,
+    "<span class="hljs-attribute">coach</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9705,9 +9694,9 @@
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
           "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+        "<span class="hljs-attribute">coach</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
         </span>}</span>,
         "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9729,7 +9718,7 @@
         <span class="hljs-string">"day_weeks"</span>,
         <span class="hljs-string">"date_range"</span>,
         <span class="hljs-string">"areas"</span>,
-        <span class="hljs-string">"coaches"</span>,
+        <span class="hljs-string">"coach"</span>,
         <span class="hljs-string">"priority"</span>,
         <span class="hljs-string">"created_at"</span>,
         <span class="hljs-string">"updated_at"</span>
@@ -9759,11 +9748,7 @@
     <span class="hljs-number">1</span>,
     <span class="hljs-number">2</span>
   ]</span>,
-  "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-    <span class="hljs-number">1</span>,
-    <span class="hljs-number">1</span>,
-    <span class="hljs-number">2</span>
-  ]</span>,
+  "<span class="hljs-attribute">coaсh_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
   "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
   "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9791,9 +9776,9 @@
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+    "<span class="hljs-attribute">coaсh_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
     </span>}</span>,
     "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9827,10 +9812,7 @@
       <span class="hljs-number">1</span>,
       <span class="hljs-number">2</span>
     ]</span>,
-    "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-      <span class="hljs-number">1</span>,
-      <span class="hljs-number">2</span>
-    ]</span>,
+    "<span class="hljs-attribute">coach</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9866,9 +9848,9 @@
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
           "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+        "<span class="hljs-attribute">coach</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
         </span>}</span>,
         "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9890,7 +9872,7 @@
         <span class="hljs-string">"day_weeks"</span>,
         <span class="hljs-string">"date_range"</span>,
         <span class="hljs-string">"areas"</span>,
-        <span class="hljs-string">"coaches"</span>,
+        <span class="hljs-string">"coach"</span>,
         <span class="hljs-string">"priority"</span>,
         <span class="hljs-string">"created_at"</span>,
         <span class="hljs-string">"updated_at"</span>
@@ -9933,10 +9915,7 @@
       <span class="hljs-number">1</span>,
       <span class="hljs-number">2</span>
     ]</span>,
-    "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">[
-      <span class="hljs-number">1</span>,
-      <span class="hljs-number">2</span>
-    ]</span>,
+    "<span class="hljs-attribute">coach</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">priority</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
     "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span></span>,
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2019-08-10T00:00:00"</span>
@@ -9972,9 +9951,9 @@
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
           "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы кортов"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">coaches</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификаторы тренеров"</span>
+        "<span class="hljs-attribute">coach</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"идентификатор тренера"</span>
         </span>}</span>,
         "<span class="hljs-attribute">priority</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
@@ -9996,7 +9975,7 @@
         <span class="hljs-string">"day_weeks"</span>,
         <span class="hljs-string">"date_range"</span>,
         <span class="hljs-string">"areas"</span>,
-        <span class="hljs-string">"coaches"</span>,
+        <span class="hljs-string">"coach"</span>,
         <span class="hljs-string">"priority"</span>,
         <span class="hljs-string">"created_at"</span>,
         <span class="hljs-string">"updated_at"</span>
@@ -11842,7 +11821,7 @@
       "<span class="hljs-attribute">additionalProperties</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
     </span>}
   </span>}
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 05 Feb 2020</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 06 Feb 2020</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
