@@ -1005,11 +1005,12 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 # Group Расписание Тренеров
 
-## Получить список [GET /club/coach-rules{?page_size,page}]
+## Получить список [GET /club/coach-rules{?page_size,page,coach_id}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
   + page: 10 (number, optional) - номер страницы
+  + coach_id: 1 (number, optional) - id тренера
 
 + Request (application/json)
     + Headers
@@ -2070,9 +2071,7 @@ days обязателен если schedule_type AUTO
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
-+ coaches: (array[number]) - идентификаторы тренеров
-  + `1`
-  + `2`
++ coach: `1` (number) - идентификатор тренера
 + priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
@@ -2099,9 +2098,7 @@ days обязателен если schedule_type AUTO
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
-+ coaches: (array[number]) - идентификаторы тренеров
-  + `1`
-  + `2`
++ coaсh_id: `1` (number) - идентификатор тренера
 + priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
@@ -2119,6 +2116,7 @@ days обязателен если schedule_type AUTO
 + areas: (array[number]) - идентификаторы кортов
   + `1`
   + `2`
+
 + priority: 10 (number) - приоритет
 + `created_at`: `2019-08-10T00:00:00` (string) - дата создания
 + `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
