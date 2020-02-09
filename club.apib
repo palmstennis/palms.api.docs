@@ -1361,6 +1361,45 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__UserSubscription)
 
 
+## Создать модель [POST /club/usersubscriptions]
+
++ Request (application/json)
+    + Attributes (CreateUpdateUserSubscription__Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
+
+
+## Обновить модель [PATCH /club/usersubscriptions/{id}]
+
++ Request (application/json)
+    + Attributes (CreateUpdateUserSubscription__Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
+
+
+## Оплатить абонемент [POST /club/usersubscriptions/{id}/pay]
+
++ Request (application/json)
+    + Attributes (PayUserSubscription__Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__UserSubscription)
+
+
 # Data Structures
 
 ## Responses
@@ -2023,6 +2062,29 @@ days обязателен если schedule_type AUTO
 ### `SellSubscription__Request` (object)
 + player_id: `1` (number, required)
 
+### `CreateUpdateUserSubscription__Request` (object)
++ subscription_id: `1` (number)
++ player_id: `1` (number)
++ price: `50000` (number, optional)
++ games_number: `10` (number, optional) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
++ validity_period: `365` (number, optional) - количство дней действительности абонемента
++ area_types: (array) - типы зона бронирования
+  + 1
+  + 2
+  + 3
++ day_weeks: (array) - дни недели
+  + 1
+  + 2
+  + 3
++ hours: (array) - часы по которым абонемент действует
+  + 8
+  + 20
++ payment_method: `CASH` (string, optional) - способ оплаты
++ trainer_included: `true` (boolean)
+
+### `PayUserSubscription__Request` (object)
++ payment_method: `CASH` (string, required) - способ оплаты
+
 ### `Response__PaymentMethods` (Response__Collection)
 + data
   + subscriptions (array):
@@ -2038,6 +2100,18 @@ days обязателен если schedule_type AUTO
 + games_number: `10` (number) - количестко игр. При оплате будет вычитаться, при рефанде будет добавляться
 + validity_period: `365` (number) - количство дней действительности абонемента
 + payment: (Payment)
++ area_types: (array) - типы зона бронирования
+  + 1
+  + 2
+  + 3
++ day_weeks: (array) - дни недели
+  + 1
+  + 2
+  + 3
++ hours: (array) - часы по которым абонемент действует
+  + 8
+  + 20
++ trainer_included: `true` (boolean)
 + is_valid: `true` (boolean)
 
 ### `Response__UserSubscription` (Response__OK)
