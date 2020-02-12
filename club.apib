@@ -1400,6 +1400,20 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__UserSubscription)
 
 
+## Удалить модель [DELETE /club/usersubscriptions/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор абонемента юзера
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
+
+
 # Data Structures
 
 ## Responses
@@ -2113,6 +2127,7 @@ days обязателен если schedule_type AUTO
   + 20
 + trainer_included: `true` (boolean)
 + is_valid: `true` (boolean)
++ active: `true` (boolean)
 
 ### `Response__UserSubscription` (Response__OK)
 + data (UserSubscription)
