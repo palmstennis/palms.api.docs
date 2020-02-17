@@ -1585,6 +1585,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 + price_per_hour: 10000 (number) - цена за час
 + price_with_area: 20000 (number) - цена за час с кортом
 + coach_picture: `file.jpg` (string) - путь к фото
++ allow_book_in_palms: `true` (boolean) - доступен ли для бронирования
 
 ### `Response__Coaches` (Response__Collection)
 + data (Coach)
@@ -1601,12 +1602,14 @@ REQUESTED -> APPROVED -> CONFIRMED
 + note: `some text` (string) - какой то комментарий о клиенте
 + price_per_hour: 10000 (number) - цена за час
 + price_with_area: 20000 (number) - цена за час с кортом
++ allow_book_in_palms: `true` (boolean) - доступен ли для бронирования
 
 ### `Coach_Patch_Request`
 + name: `Иван` (string) - имя клиента
 + note: `some text` (string) - какой то комментарий о тренре
 + price_per_hour: 10000 (number) - цена за час
 + price_with_area: 20000 (number) - цена за час с кортом
++ allow_book_in_palms: `true` (boolean) - доступен ли для бронирования
 
 ## Slots
 
