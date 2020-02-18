@@ -1167,11 +1167,13 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 # Group Schedule Window Date
 
-## Получить список [GET /club/schedule-window-date{?page_size,page}]
+## Получить список [GET /club/schedule-window-date{?page_size,page,date_from,date_to}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
   + page: 10 (number, optional) - номер страницы
+  + date_from: `2019-05-12` (string, optional) - вернуть начиная с этой даты
+  + date_to: `2019-05-13` (string, optional) - вернуть заканчивая этой датой
 
 + Request (application/json)
     + Headers
