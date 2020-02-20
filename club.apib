@@ -1092,6 +1092,91 @@ REQUESTED -> APPROVED -> CONFIRMED
   + Attributes (Response__CoachScheduleRule)
 
 
+# Group Тарифы Тренеров
+
+## Получить список [GET /club/coach-tariffs{?page_size,page,coach_id}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+  + coach_id: 1 (number, optional) - id тренера
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachTariffRules)
+
+## Получить модель [GET /club/coach-tariffs/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachTariffRule)
+
+## Обновить модель [PATCH /club/coach-tariffs/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор тарифа
+
++ Request (application/json)
+    + Attributes (CoachTariffRule_Update_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachTariffRule)
+
+## Удалить модель [DELETE /club/coach-tariffs/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор правила
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+
+## Создать модель [POST /club/coach-tariffs]
+
++ Request (application/json)
+    + Attributes (CoachTariffRule_Create_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachTariffRule)
+
+
+## Обновить приоритет [POST /club/coach-tariffs/update-priority]
++ Request (application/json)
+    + Attributes (Tarrif_Priority_Request)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CoachTariffRule)
+
+
 # Group Schedule Window
 
 ## Получить список [GET /club/schedule-window{?page_size,page}]
@@ -2222,3 +2307,89 @@ days обязателен если schedule_type AUTO
   + 1
   + 2
   + 3
+
+
+# CoachTariffRules
+
+### CoachTariffRule (object)
++ id: `1` (number) - внутренний идентификатор правила расписания в системе Palms
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `тайтл` (string) - произвольный заголовок
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ price_per_hour: `10000` (number) - стоимость тренера за час
++ price_per_hour_with_area: `20000` (number) - стоимость тренера за час вместе с кортом. В приоритете в рассчетах
++ coach: `1` (number) - идентификатор тренера
++ priority: 10 (number) - приоритет
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `Response__CoachTariffRules` (Response__Collection)
++ data (array)
+  + (CoachTariffRule)
+  + (CoachTariffRule)
+
+### `Response__CoachTariffRule` (Response__OK)
++ data (CoachTariffRule)
+
+
+### `CoachTariffRule_Create_Request` (object)
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года...` (string) - заголовок
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ price_per_hour: `10000` (number) - стоимость тренера за час
++ price_per_hour_with_area: `20000` (number) - стоимость тренера за час вместе с кортом. В приоритете в рассчетах
++ coaсh_id: `1` (number) - идентификатор тренера
++ priority: 10 (number) - приоритет
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `CoachTariffRule_Update_Request` (object)
++ result: (array[number]) - рабочие часы
+  + 8
+  + 12
++ title: `в пн с 23 июля 2019 по 20 сент 2019 года...` (string) - заголовок
++ day_weeks: (array[number]) - день недели
+  + `6`
++ date_range: (array) - даты в рамках которых действует правило расписания
+  + `2019-08-10`
+  + `2019-09-10`
++ areas: (array[number]) - идентификаторы кортов
+  + `1`
+  + `2`
++ price_per_hour: `10000` (number) - стоимость тренера за час
++ price_per_hour_with_area: `20000` (number) - стоимость тренера за час вместе с кортом. В приоритете в рассчетах
++ priority: 10 (number) - приоритет
++ `created_at`: `2019-08-10T00:00:00` (string) - дата создания
++ `updated_at`: `2019-08-10T00:00:00` (string) - последняя дата обновления
+
+### `CoachTariffRule_Calc_Request` (object)
++ date_from: `2019-08-10T00:00:00` (string) - начало отрезка
++ date_to: `2019-08-20T00:00:00` (string) - конец отрезка
++ area_id: (array) - зона бронирования
+  + 1
+  + 2
+  + 3
++ coach_id: 1 (number) - идентификатор тренера
+
+### `CoachTariffRule_Calc_Response` (object)
++ price_per_hour: `10000` (number) - стоимость в час
++ price_per_hour_with_area: `20000` (number) - стоимость в час с кортом
++ currency: `UAH` (string) - валюта
