@@ -349,6 +349,103 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
     + Attributes (Response__User_Import)
 
 
+# Group CrmUsers для клуба
+
+## Создать модель [POST /club/club-crm-user/invite]
+По указанному емейлу создается CrmUser и на почту высылается сгенерированный пароль
++ Request (application/json)
+    + Attributes (Coach_Invite_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 201 (application/json)
+    + Attributes (Response__CrmUser)
+
+
+# Group CrmUsers
+
+## Получить информацию о себе [GET /crm-user/me]
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 200 (application/json)
+    + Attributes (Response__CrmUser)
+
+## Обновить модель [PATCH /crm-user/me]
+
++ Request (application/json)
+    + Attributes (Coach_Patch_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
++ Response 200 (application/json)
+    + Attributes (Response__CrmUser)
+
+## Авторизация по email/пароль [POST /crm-user/signin]
+
++ Request (application/json)
+    + Attributes (Request__Auth__Signin)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Signin)
+
+## Восстановление пароля 1/3. Отплавка ссылки почтой [POST /crm-user/reset]
+
+Запрашиваем код восстановления по email. На почту приходит ссылка вида crm.com/?token='some token'
+Сслыка валидна в течении часа. При отправке повторной ссылки, старая инвалидируется.
+Значение токена надо передать на проверку (шаг 2/3). Если вернулся ответ 200, значит переходим к шагу 3/3
+
++ Request (application/json)
+    + Attributes (Request__Auth__Reset)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Reset)
+
+## Восстановление пароля 2/3. Проверка токена из email [POST /crm-user/check-token]
++ Request (application/json)
+    + Attributes (Request__Auth__ResetCheck)
+
++ Response 200 (application/json)
+
+## Восстановление пароля 3/3. Установка нового пароля [POST /crm-user/reset/confirm]
+
+Запрос на установку нового пароля. Чтобы его выполнить нужно получить первым запросом `token`
+ (приходит в письме пользователю) и отправить все это вместе с новым паролем.
+
++ Request (application/json)
+    + Attributes (Request__Auth__ResetConfirm)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__ResetConfirm)
+
+## Изменение пароля находясь в системе [POST /crm-user/change-password]
++ Request (application/json)
+    + Attributes (Request__Auth__ChangePassword)
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__ChangePassword)
+
+## Логаут [POST /crm-user/logout]
+В поцессе логаута мы инвалидируем токен доступа переданный нам в шапке запроса.
++ Request (application/json)
+    + Attributes (Request__Auth__Logout)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__Auth__Logout)
+
 # Group Тренеры
 
 ## Поиск тренеров [GET /club/coaches{?search,page,page_size}]
@@ -2393,3 +2490,73 @@ days обязателен если schedule_type AUTO
 + price_per_hour: `10000` (number) - стоимость в час
 + price_per_hour_with_area: `20000` (number) - стоимость в час с кортом
 + currency: `UAH` (string) - валюта
+
+# CrmUsers
+
+### CrmUser (object)
++ id: `1` (number) - идентификатор клиента
++ name: `Иван` (string) - имя клиента
++ email: `foo@bar.com`(string) - email пользователя
++ note: `some text` (string) - какой то комментарий о клиенте
+
+### `Response__CrmUsers` (Response__Collection)
++ data (CrmUser)
+  + (CrmUser)
+  + (CrmUser)
+  + (CrmUser)
+
+### `Response__CrmUser` (Response__OK)
++ data (CrmUser)
+
+### `Coach_Invite_Request`
++ email: `foo@bar.com`(string) - email пользователя
+
+### `CrmUser_Create_Request`
++ name: `Иван` (string) - имя клиента
++ email: `foo@bar.com`(string) - email пользователя
++ note: `some text` (string) - какой то комментарий о клиенте
+
+### `CrmUser_Patch_Request`
++ name: `Иван` (string) - имя клиента
++ note: `some text` (string) - какой то комментарий о тренре
+
+
+## Auth structures
+
+### Auth (object)
++ access: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTU5ODI5Mzg4LCJqdGkiOiI0NmI2OTRhOGMxNWU0NjU1YjQ5ZGYzOTMyNjFiMDQxMCIsInVzZXJfaWQiOjN9.rlhzqQ37cue97ExsGRhaOG_CZxUWYNsrfk7wGrPe4mE` (string) - токен доступ
++ refresh: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5MTM1NDU4OCwianRpIjoiYzZkNGUyMWQwNGFlNDIxNGI1YzY2ODJjZWVkMTljMjgiLCJ1c2VyX2lkIjozfQ.VOtlheethd4ad3yOjQYM09lI4YDDWo9UOQ94Q1r40Ws` (string) - токен получения нового токена доступа
+
+### `Response__Auth` (Response__OK)
++ data (Auth)
+
+### `Response__Auth__Signin` (Response__Auth)
+
+### `Request__Auth__Signin` (object)
+
++ email: `foo@bar.com` (string, required) - email пользователя
++ password: `12345678` (string, required) - пароль
+
+### `Request__Auth__Reset` (object)
++ email: `foo@bar.com` (string, required) - email пользователя
+
+### `Response__Auth__Reset` (Response__OK)
++ data (CrmUser)
+
+### `Request__Auth__ResetCheck` (object)
++ token: `YWwub3J6aEBnbWFpbC5jb20-cWVydmd4Mmp5bHM4amQ2N2l5MnFpajdrdmpnMGhobXNvY3B2Z3FndXd2dGZkaXJkOWpucHBuejJpcHpzbW9idw-MTA1` (string) - токен для восстановления пароля по коду из ссылки в email
+
+
+### `Request__Auth__ResetConfirm` (object)
++ token: `YWwub3J6aEBnbWFpbC5jb20-cWVydmd4Mmp5bHM4amQ2N2l5MnFpajdrdmpnMGhobXNvY3B2Z3FndXd2dGZkaXJkOWpucHBuejJpcHpzbW9idw-MTA1` (string) - токен для восстановления пароля по коду из ссылки в email
++ new_password: `12345678` (string) - новый пароль пользователя
+
+### `Response__Auth__ResetConfirm` (Response__Auth)
+
+### `Request__Auth__ChangePassword`
++ new_password: `12345678` (string) - новый пароль пользователя
+
+### `Response__Auth__ChangePassword` (Response__Auth)
+
+### `Request__Auth__Logout` (object)
+### `Response__Auth__Logout` (Response__OK)
