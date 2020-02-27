@@ -351,10 +351,10 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 # Group CrmUsers для клуба
 
-## Создать модель [POST /club/club-crm-user/invite]
+## Создать модель [POST /club/club-crm-user/]
 По указанному емейлу создается CrmUser и на почту высылается сгенерированный пароль
 + Request (application/json)
-    + Attributes (Coach_Invite_Request)
+    + Attributes (CrmUser_Create_Request)
     + Headers
 
         ```
@@ -362,6 +362,66 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
         ```
 + Response 201 (application/json)
     + Attributes (Response__CrmUser)
+
+## Получить список [GET /club/club-crm-user{?page_size,page}]
+
++ Parameters
+  + `page_size`: 1 (number, optional) - количество записей на странице
+  + page: 10 (number, optional) - номер страницы
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+  + Attributes (Response__CrmUsers)
+
+
+## Получить модель [GET /club/club-crm-user/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор юзера
+
++ Request (application/json)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__CrmUser)
+
+## Обновить модель [PATCH /club/club-crm-user/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор юзера
+
++ Request (application/json)
+    + Attributes (CrmUser_Patch_Request)
+    + Headers
+
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 200 (application/json)
+    + Attributes (Response__CrmUser)
+
+## Удалить модель [DELETE /club/club-crm-user/{id}]
+
++ Parameters
+  + id: 1 (number, required) - идентификатор юзера
+
++ Request (application/json)
+    + Headers
+        ```
+        Authorization: Bearer XXXXX
+        ```
+
++ Response 204 (application/json)
 
 
 # Group CrmUsers
@@ -2508,7 +2568,7 @@ days обязателен если schedule_type AUTO
 ### `Response__CrmUser` (Response__OK)
 + data (CrmUser)
 
-### `Coach_Invite_Request`
+### `CrmUser_Invite_Request`
 + email: `foo@bar.com`(string) - email пользователя
 
 ### `CrmUser_Create_Request`
