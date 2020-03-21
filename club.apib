@@ -351,7 +351,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 
 # Group CrmUsers для клуба
 
-## Создать модель [POST /club/crm-user/]
+## Создать модель [POST /club/club-crm-user/]
 По указанному емейлу создается CrmUser и на почту высылается сгенерированный пароль
 + Request (application/json)
     + Attributes (CrmUser_Create_Request)
@@ -363,7 +363,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 201 (application/json)
     + Attributes (Response__CrmUser)
 
-## Получить список [GET /club/crm-user{?page_size,page}]
+## Получить список [GET /club/club-crm-user{?page_size,page}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -379,7 +379,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
   + Attributes (Response__CrmUsers)
 
 
-## Получить модель [GET /club/crm-user/{id}]
+## Получить модель [GET /club/club-crm-user/{id}]
 
 + Parameters
   + id: 1 (number, required) - идентификатор юзера
@@ -394,7 +394,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__CrmUser)
 
-## Обновить модель [PATCH /club/crm-user/{id}]
+## Обновить модель [PATCH /club/club-crm-user/{id}]
 
 + Parameters
   + id: 1 (number, required) - идентификатор юзера
@@ -410,7 +410,7 @@ https://api.palms.tennis/club/slots?page=1&page_size=10
 + Response 200 (application/json)
     + Attributes (Response__CrmUser)
 
-## Удалить модель [DELETE /club/crm-user/{id}]
+## Удалить модель [DELETE /club/club-crm-user/{id}]
 
 + Parameters
   + id: 1 (number, required) - идентификатор юзера
@@ -714,7 +714,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 После наступления финального статуса, в модели Booking проставляется поле `finished_at`.
 
-## Получить список [GET /club/bookings{?page_size,page,status,date_from,date_to,area_type_id,player_id,coach_id}]
+## Получить список [GET /club/bookings{?page_size,page,status,date_from,date_to,area_type_id,player_id,coach_id,booking_source}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
@@ -725,6 +725,7 @@ REQUESTED -> APPROVED -> CONFIRMED
   + area_type_id: 1 (number, optional) - тип помещения
   + player_id: 1 (number, optional) - id клубного игрока
   + coach_id: 1 (number, optional) - id тренера
+  + booking_source: `CRM` (string, optional) - источник бронирования
 
 + Request (application/json)
     + Headers
