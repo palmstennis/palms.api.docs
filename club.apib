@@ -714,12 +714,13 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 После наступления финального статуса, в модели Booking проставляется поле `finished_at`.
 
-## Получить список [GET /club/bookings{?page_size,page,status,date_from,date_to,area_type_id,player_id,coach_id,booking_source}]
+## Получить список [GET /club/bookings{?page_size,page,status,date_from,date_to,area_type_id,player_id,coach_id,booking_source,payment_status}]
 
 + Parameters
   + `page_size`: 1 (number, optional) - количество записей на странице
   + page: 10 (number, optional) - номер страницы
   + status: `AVAILABLE` (string, optional) - (фильтр) статус бронирования
+  + payment_status: `APPROVED` (string, optional) - (фильтр) статус платежа
   + date_from: `2019-05-14` (string, optional) - вернуть бронирования после указанной даты
   + date_to: `2019-05-15` (string, optional) - вернуть бронирования до указанной даты
   + area_type_id: 1 (number, optional) - тип помещения
@@ -852,6 +853,7 @@ REQUESTED -> APPROVED -> CONFIRMED
 
 + Parameters
   + status: `AVAILABLE` (string, optional) - (фильтр) статус бронирования
+  + payment_status: `APPROVED` (string, optional) - (фильтр) статус платежа
   + date_from: `2019-05-14` (string, optional) - вернуть бронирования после указанной даты
   + date_to: `2019-05-15` (string, optional) - вернуть бронирования до указанной даты
   + area_type_id: 1 (number, optional) - тип помещения
